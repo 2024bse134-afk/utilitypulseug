@@ -14,16 +14,176 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      payments: {
+        Row: {
+          amount: number
+          created_at: string
+          id: string
+          meter_account_number: string
+          phone_number: string
+          provider: string
+          status: string
+          user_id: string
+          utility: string
+        }
+        Insert: {
+          amount: number
+          created_at?: string
+          id?: string
+          meter_account_number: string
+          phone_number: string
+          provider: string
+          status?: string
+          user_id: string
+          utility: string
+        }
+        Update: {
+          amount?: number
+          created_at?: string
+          id?: string
+          meter_account_number?: string
+          phone_number?: string
+          provider?: string
+          status?: string
+          user_id?: string
+          utility?: string
+        }
+        Relationships: []
+      }
+      profiles: {
+        Row: {
+          created_at: string
+          full_name: string
+          id: string
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          full_name?: string
+          id?: string
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          full_name?: string
+          id?: string
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
+      reports: {
+        Row: {
+          confirmations: number
+          created_at: string
+          denials: number
+          description: string | null
+          district: string
+          id: string
+          problem_type: string
+          status: string
+          town_village: string
+          updated_at: string
+          user_id: string
+          utility: string
+        }
+        Insert: {
+          confirmations?: number
+          created_at?: string
+          denials?: number
+          description?: string | null
+          district: string
+          id?: string
+          problem_type: string
+          status?: string
+          town_village: string
+          updated_at?: string
+          user_id: string
+          utility: string
+        }
+        Update: {
+          confirmations?: number
+          created_at?: string
+          denials?: number
+          description?: string | null
+          district?: string
+          id?: string
+          problem_type?: string
+          status?: string
+          town_village?: string
+          updated_at?: string
+          user_id?: string
+          utility?: string
+        }
+        Relationships: []
+      }
+      user_roles: {
+        Row: {
+          id: string
+          role: Database["public"]["Enums"]["app_role"]
+          user_id: string
+        }
+        Insert: {
+          id?: string
+          role: Database["public"]["Enums"]["app_role"]
+          user_id: string
+        }
+        Update: {
+          id?: string
+          role?: Database["public"]["Enums"]["app_role"]
+          user_id?: string
+        }
+        Relationships: []
+      }
+      verifications: {
+        Row: {
+          confirmed: boolean
+          created_at: string
+          id: string
+          report_id: string
+          user_id: string
+        }
+        Insert: {
+          confirmed: boolean
+          created_at?: string
+          id?: string
+          report_id: string
+          user_id: string
+        }
+        Update: {
+          confirmed?: boolean
+          created_at?: string
+          id?: string
+          report_id?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "verifications_report_id_fkey"
+            columns: ["report_id"]
+            isOneToOne: false
+            referencedRelation: "reports"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
     }
     Views: {
       [_ in never]: never
     }
     Functions: {
-      [_ in never]: never
+      has_role: {
+        Args: {
+          _role: Database["public"]["Enums"]["app_role"]
+          _user_id: string
+        }
+        Returns: boolean
+      }
     }
     Enums: {
-      [_ in never]: never
+      app_role: "admin" | "user"
     }
     CompositeTypes: {
       [_ in never]: never
@@ -150,6 +310,8 @@ export type CompositeTypes<
 
 export const Constants = {
   public: {
-    Enums: {},
+    Enums: {
+      app_role: ["admin", "user"],
+    },
   },
 } as const
