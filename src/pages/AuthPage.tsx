@@ -6,13 +6,14 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { toast } from "sonner";
-import { Zap, Droplets } from "lucide-react";
+import { Zap, Droplets, Eye, EyeOff, Mail, Lock, User } from "lucide-react";
 
 export default function AuthPage() {
   const [isLogin, setIsLogin] = useState(true);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [fullName, setFullName] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
   const [loading, setLoading] = useState(false);
   const { signIn, signUp } = useAuth();
   const navigate = useNavigate();
@@ -45,18 +46,21 @@ export default function AuthPage() {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center p-4 bg-background">
-      <div className="w-full max-w-md animate-slide-up">
+    <div className="min-h-screen flex items-center justify-center p-4 relative overflow-hidden">
+      {/* Background gradient */}
+      <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-background to-water/5" />
+      <div className="absolute top-0 right-0 w-96 h-96 bg-electricity/10 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2" />
+      <div className="absolute bottom-0 left-0 w-96 h-96 bg-water/10 rounded-full blur-3xl translate-y-1/2 -translate-x-1/2" />
+
+      <div className="w-full max-w-md animate-slide-up relative z-10">
         {/* Logo */}
         <div className="text-center mb-8">
-          <div className="inline-flex items-center gap-2 mb-4">
-            <div className="flex items-center gap-1">
-              <div className="w-10 h-10 rounded-xl gradient-electricity flex items-center justify-center">
-                <Zap className="w-5 h-5 text-electricity-foreground" />
-              </div>
-              <div className="w-10 h-10 rounded-xl gradient-water flex items-center justify-center">
-                <Droplets className="w-5 h-5 text-water-foreground" />
-              </div>
+          <div className="inline-flex items-center gap-3 mb-4">
+            <div className="w-12 h-12 rounded-2xl gradient-electricity flex items-center justify-center shadow-glow-electricity">
+              <Zap className="w-6 h-6 text-electricity-foreground" />
+            </div>
+            <div className="w-12 h-12 rounded-2xl gradient-water flex items-center justify-center shadow-glow-water">
+              <Droplets className="w-6 h-6 text-water-foreground" />
             </div>
           </div>
           <h1 className="text-3xl font-heading font-bold text-foreground">
@@ -67,7 +71,7 @@ export default function AuthPage() {
           </p>
         </div>
 
-        <Card className="shadow-card">
+        <Card className="shadow-card-hover glass border-border/50">
           <CardHeader className="text-center pb-4">
             <CardTitle className="text-xl">
               {isLogin ? "Welcome back" : "Create account"}
@@ -83,46 +87,65 @@ export default function AuthPage() {
               {!isLogin && (
                 <div className="space-y-2">
                   <Label htmlFor="fullName">Full Name</Label>
-                  <Input
-                    id="fullName"
-                    value={fullName}
-                    onChange={(e) => setFullName(e.target.value)}
-                    placeholder="Enter your full name"
-                    required={!isLogin}
-                  />
+                  <div className="relative">
+                    <User className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
+                    <Input
+                      id="fullName"
+                      value={fullName}
+                      onChange={(e) => setFullName(e.target.value)}
+                      placeholder="Enter your full name"
+                      className="pl-10"
+                      required={!isLogin}
+                    />
+                  </div>
                 </div>
               )}
               <div className="space-y-2">
                 <Label htmlFor="email">Email</Label>
-                <Input
-                  id="email"
-                  type="email"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  placeholder="you@example.com"
-                  required
-                />
+                <div className="relative">
+                  <Mail className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
+                  <Input
+                    id="email"
+                    type="email"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    placeholder="you@example.com"
+                    className="pl-10"
+                    required
+                  />
+                </div>
               </div>
               <div className="space-y-2">
                 <Label htmlFor="password">Password</Label>
-                <Input
-                  id="password"
-                  type="password"
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                  placeholder="••••••••"
-                  required
-                  minLength={6}
-                />
+                <div className="relative">
+                  <Lock className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
+                  <Input
+                    id="password"
+                    type={showPassword ? "text" : "password"}
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                    placeholder="••••••••"
+                    className="pl-10 pr-10"
+                    required
+                    minLength={6}
+                  />
+                  <button
+                    type="button"
+                    onClick={() => setShowPassword(!showPassword)}
+                    className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground transition-colors"
+                  >
+                    {showPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
+                  </button>
+                </div>
               </div>
-              <Button type="submit" className="w-full" disabled={loading}>
+              <Button type="submit" className="w-full h-11 text-base font-semibold" disabled={loading}>
                 {loading ? "Please wait..." : isLogin ? "Sign In" : "Create Account"}
               </Button>
             </form>
             <div className="mt-4 text-center">
               <button
                 onClick={() => setIsLogin(!isLogin)}
-                className="text-sm text-muted-foreground hover:text-foreground transition-colors"
+                className="text-sm text-muted-foreground hover:text-primary transition-colors"
               >
                 {isLogin
                   ? "Don't have an account? Sign up"

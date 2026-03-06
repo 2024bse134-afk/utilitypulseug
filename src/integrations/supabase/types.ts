@@ -137,6 +137,30 @@ export type Database = {
         }
         Relationships: []
       }
+      utility_units: {
+        Row: {
+          id: string
+          units: number
+          updated_at: string
+          user_id: string
+          utility: string
+        }
+        Insert: {
+          id?: string
+          units?: number
+          updated_at?: string
+          user_id: string
+          utility: string
+        }
+        Update: {
+          id?: string
+          units?: number
+          updated_at?: string
+          user_id?: string
+          utility?: string
+        }
+        Relationships: []
+      }
       verifications: {
         Row: {
           confirmed: boolean
