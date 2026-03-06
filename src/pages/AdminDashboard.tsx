@@ -6,7 +6,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { ArrowLeft, Users, FileText, Zap, Droplets, AlertTriangle } from "lucide-react";
+import { ArrowLeft, Users, FileText, Zap, Droplets, AlertTriangle, Flame, Home } from "lucide-react";
 import { toast } from "sonner";
 import type { Tables } from "@/integrations/supabase/types";
 
@@ -14,7 +14,7 @@ type Report = Tables<"reports">;
 
 export default function AdminDashboard() {
   const navigate = useNavigate();
-  const { isAdmin } = useAuth();
+  const { isAdmin, signOut } = useAuth();
   const [reports, setReports] = useState<Report[]>([]);
   const [loading, setLoading] = useState(true);
   const [stats, setStats] = useState({
@@ -65,12 +65,14 @@ export default function AdminDashboard() {
   };
 
   // Area hotspots
-  const hotspots = reports.reduce<Record<string, number>>((acc, r) => {
+  const hotspots = reports.reduce<Record<string, { total: number; electricity: number; water: number }>>((acc, r) => {
     const key = `${r.town_village}, ${r.district}`;
-    acc[key] = (acc[key] || 0) + 1;
+    if (!acc[key]) acc[key] = { total: 0, electricity: 0, water: 0 };
+    acc[key].total += 1;
+    acc[key][r.utility as "electricity" | "water"] += 1;
     return acc;
   }, {});
-  const sortedHotspots = Object.entries(hotspots).sort((a, b) => b[1] - a[1]).slice(0, 10);
+  const sortedHotspots = Object.entries(hotspots).sort((a, b) => b[1].total - a[1].total).slice(0, 10);
 
   const statusColors: Record<string, string> = {
     pending: "bg-status-possible/10 text-status-possible",
@@ -82,33 +84,41 @@ export default function AdminDashboard() {
   if (loading) {
     return (
       <div className="min-h-screen bg-background flex items-center justify-center">
-        <p className="text-muted-foreground">Loading admin dashboard...</p>
+        <div className="w-6 h-6 border-2 border-primary border-t-transparent rounded-full animate-spin" />
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen bg-background p-4">
-      <div className="max-w-4xl mx-auto pt-6">
-        <div className="flex items-center gap-3 mb-6">
-          <Button variant="ghost" size="icon" onClick={() => navigate("/")}>
-            <ArrowLeft className="w-5 h-5" />
+    <div className="min-h-screen p-4 relative overflow-hidden">
+      <div className="absolute inset-0 bg-gradient-to-br from-primary/3 via-background to-accent/5" />
+      <div className="max-w-5xl mx-auto pt-6 relative z-10">
+        <div className="flex items-center justify-between mb-6">
+          <div className="flex items-center gap-3">
+            <Button variant="ghost" size="icon" onClick={() => navigate("/")} className="rounded-xl">
+              <Home className="w-5 h-5" />
+            </Button>
+            <h1 className="text-2xl font-heading font-bold">Admin Dashboard</h1>
+          </div>
+          <Button variant="ghost" size="sm" onClick={signOut} className="rounded-xl">
+            Sign out
           </Button>
-          <h1 className="text-2xl font-heading font-bold">Admin Dashboard</h1>
         </div>
 
         {/* Stats Cards */}
         <div className="grid grid-cols-2 md:grid-cols-5 gap-3 mb-6">
           {[
-            { icon: Users, label: "Total Users", value: stats.totalUsers, color: "text-primary" },
-            { icon: FileText, label: "Total Reports", value: stats.totalReports, color: "text-foreground" },
-            { icon: Zap, label: "Electricity", value: stats.electricityReports, color: "text-electricity" },
-            { icon: Droplets, label: "Water", value: stats.waterReports, color: "text-water" },
-            { icon: AlertTriangle, label: "Confirmed", value: stats.confirmedOutages, color: "text-status-confirmed" },
+            { icon: Users, label: "Total Users", value: stats.totalUsers, bg: "bg-primary/10", color: "text-primary" },
+            { icon: FileText, label: "Total Reports", value: stats.totalReports, bg: "bg-muted", color: "text-foreground" },
+            { icon: Zap, label: "Electricity", value: stats.electricityReports, bg: "bg-electricity-light", color: "text-electricity" },
+            { icon: Droplets, label: "Water", value: stats.waterReports, bg: "bg-water-light", color: "text-water" },
+            { icon: AlertTriangle, label: "Confirmed", value: stats.confirmedOutages, bg: "bg-status-confirmed/10", color: "text-status-confirmed" },
           ].map((stat) => (
-            <Card key={stat.label} className="shadow-card">
+            <Card key={stat.label} className="shadow-card glass border-border/50">
               <CardContent className="p-4 text-center">
-                <stat.icon className={`w-5 h-5 mx-auto mb-1 ${stat.color}`} />
+                <div className={`w-10 h-10 mx-auto rounded-xl ${stat.bg} flex items-center justify-center mb-2`}>
+                  <stat.icon className={`w-5 h-5 ${stat.color}`} />
+                </div>
                 <p className={`text-2xl font-heading font-bold ${stat.color}`}>{stat.value}</p>
                 <p className="text-xs text-muted-foreground">{stat.label}</p>
               </CardContent>
@@ -119,7 +129,7 @@ export default function AdminDashboard() {
         <div className="grid md:grid-cols-3 gap-6">
           {/* Reports Table */}
           <div className="md:col-span-2">
-            <Card className="shadow-card">
+            <Card className="shadow-card glass border-border/50">
               <CardHeader>
                 <CardTitle className="text-lg">Recent Reports</CardTitle>
               </CardHeader>
@@ -136,9 +146,16 @@ export default function AdminDashboard() {
                     </thead>
                     <tbody>
                       {reports.slice(0, 20).map((report) => (
-                        <tr key={report.id} className="border-b last:border-0">
+                        <tr key={report.id} className="border-b last:border-0 hover:bg-muted/30 transition-colors">
                           <td className="p-3">
-                            {report.utility === "electricity" ? "⚡" : "💧"} {report.utility}
+                            <div className="flex items-center gap-1.5">
+                              {report.utility === "electricity" ? (
+                                <Zap className="w-4 h-4 text-electricity" />
+                              ) : (
+                                <Droplets className="w-4 h-4 text-water" />
+                              )}
+                              <span className="capitalize">{report.utility}</span>
+                            </div>
                           </td>
                           <td className="p-3 text-muted-foreground">
                             {report.town_village}, {report.district}
@@ -149,7 +166,7 @@ export default function AdminDashboard() {
                               value={report.status}
                               onValueChange={(val) => updateStatus(report.id, val)}
                             >
-                              <SelectTrigger className="w-32 h-8">
+                              <SelectTrigger className="w-32 h-8 rounded-lg">
                                 <SelectValue />
                               </SelectTrigger>
                               <SelectContent>
@@ -174,18 +191,31 @@ export default function AdminDashboard() {
 
           {/* Hotspots */}
           <div>
-            <Card className="shadow-card">
+            <Card className="shadow-card glass border-border/50">
               <CardHeader>
-                <CardTitle className="text-lg">🔥 Area Hotspots</CardTitle>
+                <CardTitle className="text-lg flex items-center gap-2">
+                  <Flame className="w-5 h-5 text-status-confirmed" />
+                  Area Hotspots
+                </CardTitle>
               </CardHeader>
               <CardContent className="space-y-2">
                 {sortedHotspots.length === 0 ? (
                   <p className="text-muted-foreground text-sm">No hotspots yet.</p>
                 ) : (
-                  sortedHotspots.map(([area, count]) => (
-                    <div key={area} className="flex items-center justify-between p-2 rounded-lg bg-muted/50">
-                      <span className="text-sm font-medium">{area}</span>
-                      <Badge variant="secondary">{count} reports</Badge>
+                  sortedHotspots.map(([area, data]) => (
+                    <div key={area} className="flex items-center justify-between p-3 rounded-lg bg-muted/50">
+                      <div>
+                        <span className="text-sm font-medium">{area}</span>
+                        <div className="flex items-center gap-2 mt-0.5">
+                          <span className="text-xs text-muted-foreground flex items-center gap-0.5">
+                            <Zap className="w-3 h-3 text-electricity" /> {data.electricity}
+                          </span>
+                          <span className="text-xs text-muted-foreground flex items-center gap-0.5">
+                            <Droplets className="w-3 h-3 text-water" /> {data.water}
+                          </span>
+                        </div>
+                      </div>
+                      <Badge variant="secondary">{data.total} reports</Badge>
                     </div>
                   ))
                 )}

@@ -11,11 +11,11 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { ArrowLeft, AlertTriangle, CheckCircle2 } from "lucide-react";
 import { toast } from "sonner";
 
-const ELECTRICITY_PROBLEMS = ["Outage", "Low voltage", "Fluctuation"];
-const WATER_PROBLEMS = ["Shortage", "Pipe leak", "Low pressure"];
+const ELECTRICITY_PROBLEMS = ["Power outage", "Low voltage", "Power fluctuation"];
+const WATER_PROBLEMS = ["Water shortage", "Pipe leak", "Low pressure"];
 
 const DISTRICTS = [
-  "Kampala", "Wakiso", "Mbarara", "Bushenyi", "Jinja", "Mbale", "Gulu", 
+  "Kampala", "Wakiso", "Mbarara", "Bushenyi", "Jinja", "Mbale", "Gulu",
   "Lira", "Soroti", "Fort Portal", "Masaka", "Mukono", "Entebbe"
 ];
 
@@ -57,8 +57,9 @@ export default function ReportProblemPage() {
 
   if (submitted) {
     return (
-      <div className="min-h-screen bg-background p-4 flex items-center justify-center">
-        <Card className="max-w-md w-full shadow-card animate-slide-up">
+      <div className="min-h-screen p-4 flex items-center justify-center relative overflow-hidden">
+        <div className="absolute inset-0 bg-gradient-to-br from-status-normal/5 to-background" />
+        <Card className="max-w-md w-full shadow-card-hover glass animate-slide-up relative z-10">
           <CardContent className="pt-8 pb-8 text-center space-y-4">
             <div className="w-16 h-16 mx-auto rounded-full bg-status-normal/10 flex items-center justify-center">
               <CheckCircle2 className="w-8 h-8 text-status-normal" />
@@ -78,21 +79,22 @@ export default function ReportProblemPage() {
   }
 
   return (
-    <div className="min-h-screen bg-background p-4">
-      <div className="max-w-md mx-auto pt-6">
+    <div className="min-h-screen p-4 relative overflow-hidden">
+      <div className={`absolute inset-0 bg-gradient-to-br ${isElectricity ? "from-electricity/5" : "from-water/5"} to-background`} />
+      <div className="max-w-md mx-auto pt-6 relative z-10">
         <div className="flex items-center gap-3 mb-6">
-          <Button variant="ghost" size="icon" onClick={() => navigate(`/${utility}`)}>
+          <Button variant="ghost" size="icon" onClick={() => navigate(`/${utility}`)} className="rounded-xl">
             <ArrowLeft className="w-5 h-5" />
           </Button>
           <div className="flex items-center gap-2">
-            <AlertTriangle className={`w-5 h-5 text-${isElectricity ? "electricity" : "water"}`} />
+            <AlertTriangle className={`w-5 h-5 ${isElectricity ? "text-electricity" : "text-water"}`} />
             <h1 className="text-xl font-heading font-bold">
               Report {isElectricity ? "Electricity" : "Water"} Problem
             </h1>
           </div>
         </div>
 
-        <Card className="shadow-card">
+        <Card className="shadow-card-hover glass border-border/50">
           <CardHeader>
             <CardTitle className="text-lg">Problem Details</CardTitle>
           </CardHeader>
@@ -101,7 +103,7 @@ export default function ReportProblemPage() {
               <div className="space-y-2">
                 <Label>Problem Type</Label>
                 <Select value={problemType} onValueChange={setProblemType} required>
-                  <SelectTrigger>
+                  <SelectTrigger className="rounded-lg">
                     <SelectValue placeholder="Select problem type" />
                   </SelectTrigger>
                   <SelectContent>
@@ -114,7 +116,7 @@ export default function ReportProblemPage() {
               <div className="space-y-2">
                 <Label>District</Label>
                 <Select value={district} onValueChange={setDistrict} required>
-                  <SelectTrigger>
+                  <SelectTrigger className="rounded-lg">
                     <SelectValue placeholder="Select district" />
                   </SelectTrigger>
                   <SelectContent>
@@ -142,7 +144,7 @@ export default function ReportProblemPage() {
                   rows={3}
                 />
               </div>
-              <Button type="submit" className="w-full" disabled={loading || !problemType || !district || !townVillage}>
+              <Button type="submit" className="w-full h-11 text-base font-semibold" disabled={loading || !problemType || !district || !townVillage}>
                 {loading ? "Submitting..." : "Submit Report"}
               </Button>
             </form>

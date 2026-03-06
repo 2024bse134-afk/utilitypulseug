@@ -3,7 +3,7 @@ import { Navigate } from "react-router-dom";
 import UtilitySelection from "./UtilitySelection";
 
 export default function Index() {
-  const { user, loading } = useAuth();
+  const { user, isAdmin, loading } = useAuth();
 
   if (loading) {
     return (
@@ -18,6 +18,11 @@ export default function Index() {
 
   if (!user) {
     return <Navigate to="/auth" replace />;
+  }
+
+  // Admin users go directly to admin dashboard
+  if (isAdmin) {
+    return <Navigate to="/admin" replace />;
   }
 
   return <UtilitySelection />;
