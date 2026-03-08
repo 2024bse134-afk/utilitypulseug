@@ -163,7 +163,7 @@ export default function AdminDashboard() {
           {/* Reports Tables */}
           <div className="md:col-span-2 space-y-6">
             {/* Electricity Reports */}
-            <Card className="shadow-card glass border-border/50">
+            <Card className="shadow-card bg-card/95 backdrop-blur-md border-border/50">
               <CardHeader>
                 <CardTitle className="text-lg flex items-center gap-2">
                   <Zap className="w-5 h-5 text-electricity" />
