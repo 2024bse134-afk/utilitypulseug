@@ -12,7 +12,7 @@ import { toast } from "sonner";
 
 export default function ProfileSettingsPage() {
   const navigate = useNavigate();
-  const { user, profile } = useAuth();
+  const { user, profile, refreshProfile } = useAuth();
   const [fullName, setFullName] = useState("");
   const [district, setDistrict] = useState("");
   const [townVillage, setTownVillage] = useState("");
