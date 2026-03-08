@@ -128,12 +128,12 @@ export default function AdminDashboard() {
       <div className="max-w-5xl mx-auto pt-6">
         <div className="flex items-center justify-between mb-6">
           <div className="flex items-center gap-3">
-            <Button variant="ghost" size="icon" onClick={() => navigate("/")} className="rounded-xl">
+            <Button variant="ghost" size="icon" onClick={() => navigate("/")} className="rounded-xl text-white hover:bg-white/20">
               <Home className="w-5 h-5" />
             </Button>
-            <h1 className="text-2xl font-heading font-bold">Admin Dashboard</h1>
+            <h1 className="text-2xl font-heading font-bold text-white drop-shadow-lg">Admin Dashboard</h1>
           </div>
-          <Button variant="ghost" size="sm" onClick={signOut} className="rounded-xl">
+          <Button variant="ghost" size="sm" onClick={signOut} className="rounded-xl text-white hover:bg-white/20">
             Sign out
           </Button>
         </div>
@@ -147,7 +147,7 @@ export default function AdminDashboard() {
             { icon: Droplets, label: "Water", value: stats.waterReports, bg: "bg-water-light", color: "text-water" },
             { icon: AlertTriangle, label: "Confirmed", value: stats.confirmedOutages, bg: "bg-status-confirmed/10", color: "text-status-confirmed" },
           ].map((stat) => (
-            <Card key={stat.label} className="shadow-card glass border-border/50">
+            <Card key={stat.label} className="shadow-card bg-card/95 backdrop-blur-md border-border/50">
               <CardContent className="p-4 text-center">
                 <div className={`w-10 h-10 mx-auto rounded-xl ${stat.bg} flex items-center justify-center mb-2`}>
                   <stat.icon className={`w-5 h-5 ${stat.color}`} />
@@ -163,7 +163,7 @@ export default function AdminDashboard() {
           {/* Reports Tables */}
           <div className="md:col-span-2 space-y-6">
             {/* Electricity Reports */}
-            <Card className="shadow-card glass border-border/50">
+            <Card className="shadow-card bg-card/95 backdrop-blur-md border-border/50">
               <CardHeader>
                 <CardTitle className="text-lg flex items-center gap-2">
                   <Zap className="w-5 h-5 text-electricity" />
@@ -245,7 +245,7 @@ export default function AdminDashboard() {
             </Card>
 
             {/* Water Reports */}
-            <Card className="shadow-card glass border-border/50">
+            <Card className="shadow-card bg-card/95 backdrop-blur-md border-border/50">
               <CardHeader>
                 <CardTitle className="text-lg flex items-center gap-2">
                   <Droplets className="w-5 h-5 text-water" />
@@ -330,7 +330,7 @@ export default function AdminDashboard() {
           {/* Confirmed Areas & Hotspots */}
           <div className="space-y-6">
             {/* Confirmed Outage Areas */}
-            <Card className="shadow-card glass border-status-confirmed/30">
+            <Card className="shadow-card bg-card/95 backdrop-blur-md border-status-confirmed/30">
               <CardHeader>
                 <CardTitle className="text-lg flex items-center gap-2">
                   <AlertTriangle className="w-5 h-5 text-status-confirmed" />
@@ -369,7 +369,7 @@ export default function AdminDashboard() {
             </Card>
 
             {/* All Area Hotspots */}
-            <Card className="shadow-card glass border-border/50">
+            <Card className="shadow-card bg-card/95 backdrop-blur-md border-border/50">
               <CardHeader>
                 <CardTitle className="text-lg flex items-center gap-2">
                   <Flame className="w-5 h-5 text-status-confirmed" />
