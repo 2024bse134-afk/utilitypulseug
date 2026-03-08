@@ -330,7 +330,7 @@ export default function AdminDashboard() {
           {/* Confirmed Areas & Hotspots */}
           <div className="space-y-6">
             {/* Confirmed Outage Areas */}
-            <Card className="shadow-card glass border-status-confirmed/30">
+            <Card className="shadow-card bg-card/95 backdrop-blur-md border-status-confirmed/30">
               <CardHeader>
                 <CardTitle className="text-lg flex items-center gap-2">
                   <AlertTriangle className="w-5 h-5 text-status-confirmed" />
