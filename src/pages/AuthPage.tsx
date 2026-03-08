@@ -69,7 +69,7 @@ export default function AuthPage() {
     <div className="min-h-screen flex items-center justify-center p-4 relative overflow-hidden">
       {/* Background image */}
       <div className="absolute inset-0">
-        <img src={electricPoleWorker} alt="Utility workers on electric pole" className="w-full h-full object-cover" />
+        <img src={electricPoleWorker} alt="Utility workers on electric pole" className="w-full h-full object-cover rotate-[-8deg] scale-125" />
         <div className="absolute inset-0 bg-background/40" />
       </div>
 
