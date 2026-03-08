@@ -128,12 +128,12 @@ export default function AdminDashboard() {
       <div className="max-w-5xl mx-auto pt-6">
         <div className="flex items-center justify-between mb-6">
           <div className="flex items-center gap-3">
-            <Button variant="ghost" size="icon" onClick={() => navigate("/")} className="rounded-xl">
+            <Button variant="ghost" size="icon" onClick={() => navigate("/")} className="rounded-xl text-white hover:bg-white/20">
               <Home className="w-5 h-5" />
             </Button>
             <h1 className="text-2xl font-heading font-bold text-white drop-shadow-lg">Admin Dashboard</h1>
           </div>
-          <Button variant="ghost" size="sm" onClick={signOut} className="rounded-xl">
+          <Button variant="ghost" size="sm" onClick={signOut} className="rounded-xl text-white hover:bg-white/20">
             Sign out
           </Button>
         </div>
