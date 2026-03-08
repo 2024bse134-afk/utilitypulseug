@@ -1,4 +1,5 @@
 import { useState } from "react";
+import electricPoleWorker from "@/assets/electric-pole-worker.jpg";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "@/contexts/AuthContext";
 import { Button } from "@/components/ui/button";
