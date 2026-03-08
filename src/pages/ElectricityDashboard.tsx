@@ -25,7 +25,7 @@ export default function ElectricityDashboard() {
   const actions = [
     { icon: CreditCard, label: "Pay Bill", desc: "MTN & Airtel Mobile Money", path: "/pay/electricity" },
     { icon: AlertTriangle, label: "Report Problem", desc: "Outage, low voltage, fluctuation", path: "/report/electricity" },
-    { icon: MapPin, label: "Area Outages", desc: "See issues near you", path: "/outages/electricity" },
+    { icon: MapPin, label: "Areas with Issues", desc: "See issues near you", path: "/outages/electricity" },
   ];
 
   const unitsValue = units !== null ? units.toFixed(1) : "—";
