@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useMemo } from "react";
 import electricPoleWorker from "@/assets/electric-pole-worker.jpg";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "@/contexts/AuthContext";
@@ -7,19 +7,27 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { toast } from "sonner";
-import { Zap, Droplets, Eye, EyeOff, Mail, Lock, User } from "lucide-react";
+import { Zap, Droplets, Eye, EyeOff, Mail, Lock, User, MapPin, Search, ChevronDown, X } from "lucide-react";
 import { lovable } from "@/integrations/lovable/index";
 import { supabase } from "@/integrations/supabase/client";
+import { searchDistricts, getTownsForDistrict } from "@/data/ugandaLocations";
 
 export default function AuthPage() {
   const [isLogin, setIsLogin] = useState(true);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [fullName, setFullName] = useState("");
+  const [district, setDistrict] = useState("");
+  const [townVillage, setTownVillage] = useState("");
+  const [districtSearch, setDistrictSearch] = useState("");
+  const [showDistrictDropdown, setShowDistrictDropdown] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
   const [loading, setLoading] = useState(false);
   const { signIn, signUp } = useAuth();
   const navigate = useNavigate();
+
+  const filteredDistricts = useMemo(() => searchDistricts(districtSearch), [districtSearch]);
+  const towns = district ? getTownsForDistrict(district) : [];
 
   const handleForgotPassword = async () => {
     if (!email.trim()) {
@@ -55,7 +63,12 @@ export default function AuthPage() {
         setLoading(false);
         return;
       }
-      const { error } = await signUp(email, password, fullName);
+      if (!district || !townVillage) {
+        toast.error("Please select your district and town");
+        setLoading(false);
+        return;
+      }
+      const { error } = await signUp(email, password, fullName, district, townVillage);
       if (error) {
         toast.error(error.message);
       } else {
@@ -92,7 +105,7 @@ export default function AuthPage() {
           </p>
         </div>
 
-        <Card className="shadow-card-hover glass border-border/50">
+        <Card className="shadow-card-hover glass border-border/50 max-h-[70vh] overflow-y-auto">
           <CardHeader className="text-center pb-4">
             <CardTitle className="text-xl">
               {isLogin ? "Welcome back" : "Create account"}
@@ -106,20 +119,106 @@ export default function AuthPage() {
           <CardContent>
             <form onSubmit={handleSubmit} className="space-y-4">
               {!isLogin && (
-                <div className="space-y-2">
-                  <Label htmlFor="fullName">Full Name</Label>
-                  <div className="relative">
-                    <User className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
-                    <Input
-                      id="fullName"
-                      value={fullName}
-                      onChange={(e) => setFullName(e.target.value)}
-                      placeholder="Enter your full name"
-                      className="pl-10"
-                      required={!isLogin}
-                    />
+                <>
+                  <div className="space-y-2">
+                    <Label htmlFor="fullName">Full Name</Label>
+                    <div className="relative">
+                      <User className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
+                      <Input
+                        id="fullName"
+                        value={fullName}
+                        onChange={(e) => setFullName(e.target.value)}
+                        placeholder="Enter your full name"
+                        className="pl-10"
+                        required={!isLogin}
+                      />
+                    </div>
                   </div>
-                </div>
+
+                  {/* District */}
+                  <div className="space-y-2">
+                    <Label>District</Label>
+                    <div className="relative">
+                      <MapPin className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground z-10" />
+                      <Input
+                        placeholder="Search & select district..."
+                        value={showDistrictDropdown ? districtSearch : district || ""}
+                        onChange={(e) => {
+                          setDistrictSearch(e.target.value);
+                          setShowDistrictDropdown(true);
+                          if (district) {
+                            setDistrict("");
+                            setTownVillage("");
+                          }
+                        }}
+                        onFocus={() => setShowDistrictDropdown(true)}
+                        className="pl-10 pr-9"
+                      />
+                      {district ? (
+                        <button
+                          type="button"
+                          onClick={() => {
+                            setDistrict("");
+                            setDistrictSearch("");
+                            setTownVillage("");
+                            setShowDistrictDropdown(true);
+                          }}
+                          className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground z-10"
+                        >
+                          <X className="w-4 h-4" />
+                        </button>
+                      ) : (
+                        <ChevronDown className="absolute right-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground pointer-events-none" />
+                      )}
+                      {showDistrictDropdown && !district && (
+                        <div className="absolute z-20 w-full mt-1 bg-popover border border-border rounded-xl shadow-lg max-h-40 overflow-y-auto">
+                          {filteredDistricts.length > 0 ? (
+                            filteredDistricts.map((d) => (
+                              <button
+                                key={d}
+                                type="button"
+                                onClick={() => {
+                                  setDistrict(d);
+                                  setDistrictSearch("");
+                                  setShowDistrictDropdown(false);
+                                  setTownVillage("");
+                                }}
+                                className="w-full text-left px-4 py-2 text-sm hover:bg-accent hover:text-accent-foreground transition-colors first:rounded-t-xl last:rounded-b-xl"
+                              >
+                                {d}
+                              </button>
+                            ))
+                          ) : (
+                            <p className="px-4 py-3 text-sm text-muted-foreground text-center">No districts found</p>
+                          )}
+                        </div>
+                      )}
+                    </div>
+                  </div>
+
+                  {/* Town */}
+                  {district && (
+                    <div className="space-y-2">
+                      <Label>Town / Village</Label>
+                      <div className="grid grid-cols-2 gap-1.5 max-h-32 overflow-y-auto rounded-xl border border-border/50 p-2 bg-background/30">
+                        {towns.map((t) => (
+                          <button
+                            key={t}
+                            type="button"
+                            onClick={() => setTownVillage(t)}
+                            className={`text-left px-3 py-1.5 rounded-lg text-xs transition-all duration-150
+                              ${townVillage === t
+                                ? "bg-primary/10 text-foreground font-semibold border border-primary/30"
+                                : "hover:bg-muted/50 text-foreground/70 border border-transparent"
+                              }`}
+                          >
+                            {t}
+                          </button>
+                        ))}
+                      </div>
+                    </div>
+                  )}
+                </>
               )}
               <div className="space-y-2">
                 <Label htmlFor="email">Email</Label>
@@ -173,7 +272,7 @@ export default function AuthPage() {
               <Button
                 type="submit"
                 className="w-full h-12 text-base font-bold rounded-xl bg-primary hover:bg-primary/90 text-primary-foreground shadow-lg hover:shadow-xl transition-all duration-300"
-                disabled={loading}
+                disabled={loading || (!isLogin && (!district || !townVillage))}
               >
                 {loading ? "Please wait..." : isLogin ? "Sign In" : "Create Account"}
               </Button>
