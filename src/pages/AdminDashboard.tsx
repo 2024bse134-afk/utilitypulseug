@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "@/contexts/AuthContext";
 import { supabase } from "@/integrations/supabase/client";
@@ -182,8 +182,8 @@ export default function AdminDashboard() {
                         const denies = rv.filter(v => !v.confirmed).length;
                         const isExpanded = expandedReport === report.id;
                         return (
-                          <>
-                            <tr key={report.id} className="border-b last:border-0 hover:bg-muted/30 transition-colors cursor-pointer" onClick={() => setExpandedReport(isExpanded ? null : report.id)}>
+                          <React.Fragment key={report.id}>
+                            <tr className="border-b last:border-0 hover:bg-muted/30 transition-colors cursor-pointer" onClick={() => setExpandedReport(isExpanded ? null : report.id)}>
                               <td className="p-3 text-muted-foreground">
                                 {report.town_village}, {report.district}
                               </td>
@@ -226,7 +226,7 @@ export default function AdminDashboard() {
                                 </td>
                               </tr>
                             )}
-                          </>
+                          </React.Fragment>
                         );
                       })}
                     </tbody>
@@ -264,8 +264,8 @@ export default function AdminDashboard() {
                         const denies = rv.filter(v => !v.confirmed).length;
                         const isExpanded = expandedReport === report.id;
                         return (
-                          <>
-                            <tr key={report.id} className="border-b last:border-0 hover:bg-muted/30 transition-colors cursor-pointer" onClick={() => setExpandedReport(isExpanded ? null : report.id)}>
+                          <React.Fragment key={report.id}>
+                            <tr className="border-b last:border-0 hover:bg-muted/30 transition-colors cursor-pointer" onClick={() => setExpandedReport(isExpanded ? null : report.id)}>
                               <td className="p-3 text-muted-foreground">
                                 {report.town_village}, {report.district}
                               </td>
@@ -308,7 +308,7 @@ export default function AdminDashboard() {
                                 </td>
                               </tr>
                             )}
-                          </>
+                          </React.Fragment>
                         );
                       })}
                     </tbody>
