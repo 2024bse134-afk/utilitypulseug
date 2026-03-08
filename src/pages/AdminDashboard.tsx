@@ -127,45 +127,35 @@ export default function AdminDashboard() {
         </div>
 
         <div className="grid md:grid-cols-3 gap-6">
-          {/* Reports Table */}
-          <div className="md:col-span-2">
+          {/* Reports Tables */}
+          <div className="md:col-span-2 space-y-6">
+            {/* Electricity Reports */}
             <Card className="shadow-card glass border-border/50">
               <CardHeader>
-                <CardTitle className="text-lg">Recent Reports</CardTitle>
+                <CardTitle className="text-lg flex items-center gap-2">
+                  <Zap className="w-5 h-5 text-electricity" />
+                  Electricity Reports
+                </CardTitle>
               </CardHeader>
               <CardContent className="p-0">
                 <div className="overflow-x-auto">
                   <table className="w-full text-sm">
                     <thead>
                       <tr className="border-b bg-muted/50">
-                        <th className="p-3 text-left font-medium text-muted-foreground">Utility</th>
                         <th className="p-3 text-left font-medium text-muted-foreground">Location</th>
                         <th className="p-3 text-left font-medium text-muted-foreground">Problem</th>
                         <th className="p-3 text-left font-medium text-muted-foreground">Status</th>
                       </tr>
                     </thead>
                     <tbody>
-                      {reports.slice(0, 20).map((report) => (
+                      {reports.filter(r => r.utility === "electricity").slice(0, 20).map((report) => (
                         <tr key={report.id} className="border-b last:border-0 hover:bg-muted/30 transition-colors">
-                          <td className="p-3">
-                            <div className="flex items-center gap-1.5">
-                              {report.utility === "electricity" ? (
-                                <Zap className="w-4 h-4 text-electricity" />
-                              ) : (
-                                <Droplets className="w-4 h-4 text-water" />
-                              )}
-                              <span className="capitalize">{report.utility}</span>
-                            </div>
-                          </td>
                           <td className="p-3 text-muted-foreground">
                             {report.town_village}, {report.district}
                           </td>
                           <td className="p-3">{report.problem_type}</td>
                           <td className="p-3">
-                            <Select
-                              value={report.status}
-                              onValueChange={(val) => updateStatus(report.id, val)}
-                            >
+                            <Select value={report.status} onValueChange={(val) => updateStatus(report.id, val)}>
                               <SelectTrigger className="w-32 h-8 rounded-lg">
                                 <SelectValue />
                               </SelectTrigger>
@@ -181,8 +171,57 @@ export default function AdminDashboard() {
                       ))}
                     </tbody>
                   </table>
-                  {reports.length === 0 && (
-                    <p className="text-center text-muted-foreground py-8">No reports yet.</p>
+                  {reports.filter(r => r.utility === "electricity").length === 0 && (
+                    <p className="text-center text-muted-foreground py-8">No electricity reports yet.</p>
+                  )}
+                </div>
+              </CardContent>
+            </Card>
+
+            {/* Water Reports */}
+            <Card className="shadow-card glass border-border/50">
+              <CardHeader>
+                <CardTitle className="text-lg flex items-center gap-2">
+                  <Droplets className="w-5 h-5 text-water" />
+                  Water Reports
+                </CardTitle>
+              </CardHeader>
+              <CardContent className="p-0">
+                <div className="overflow-x-auto">
+                  <table className="w-full text-sm">
+                    <thead>
+                      <tr className="border-b bg-muted/50">
+                        <th className="p-3 text-left font-medium text-muted-foreground">Location</th>
+                        <th className="p-3 text-left font-medium text-muted-foreground">Problem</th>
+                        <th className="p-3 text-left font-medium text-muted-foreground">Status</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {reports.filter(r => r.utility === "water").slice(0, 20).map((report) => (
+                        <tr key={report.id} className="border-b last:border-0 hover:bg-muted/30 transition-colors">
+                          <td className="p-3 text-muted-foreground">
+                            {report.town_village}, {report.district}
+                          </td>
+                          <td className="p-3">{report.problem_type}</td>
+                          <td className="p-3">
+                            <Select value={report.status} onValueChange={(val) => updateStatus(report.id, val)}>
+                              <SelectTrigger className="w-32 h-8 rounded-lg">
+                                <SelectValue />
+                              </SelectTrigger>
+                              <SelectContent>
+                                <SelectItem value="pending">Pending</SelectItem>
+                                <SelectItem value="investigating">Investigating</SelectItem>
+                                <SelectItem value="confirmed">Confirmed</SelectItem>
+                                <SelectItem value="resolved">Resolved</SelectItem>
+                              </SelectContent>
+                            </Select>
+                          </td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                  {reports.filter(r => r.utility === "water").length === 0 && (
+                    <p className="text-center text-muted-foreground py-8">No water reports yet.</p>
                   )}
                 </div>
               </CardContent>
