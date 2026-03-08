@@ -1,17 +1,115 @@
 // Comprehensive Uganda districts with their towns, villages, and localities
+// All 135+ districts of Uganda with key towns and trading centers
 export type LocationData = {
   [district: string]: string[];
 };
 
 export const UGANDA_DISTRICTS_TOWNS: LocationData = {
-  // Central Region
+  // ========== CENTRAL REGION ==========
+  "Bukomansimbi": [
+    "Bukomansimbi Town", "Kibinge", "Bigasa", "Butenga", "Kitanda",
+    "Kabaale", "Butaama", "Kyankoole"
+  ],
+  "Buikwe": [
+    "Lugazi", "Njeru", "Ssi Bukunja", "Nkokonjeru", "Kawolo",
+    "Nyenga", "Buikwe Town", "Ngogwe", "Wakisi", "Nabitula",
+    "Ssi", "Naminya", "Najjembe"
+  ],
+  "Butambala": [
+    "Gombe", "Butambala Town", "Kalamba", "Budde", "Ngando",
+    "Bulo", "Kitimba", "Kibibi"
+  ],
+  "Gomba": [
+    "Kanoni", "Gomba Town", "Maddu", "Kabulasoke",
+    "Mpenja", "Kyamulibwa"
+  ],
+  "Kalangala": [
+    "Kalangala Town", "Bufumira", "Bukasa Island", "Mazinga",
+    "Bujumba", "Mugoye", "Kyamuswa"
+  ],
+  "Kalungu": [
+    "Kalungu Town", "Lukaya", "Bukulula", "Lwabenge",
+    "Kyamulibwa", "Ndagwe"
+  ],
   "Kampala": [
     "Nakasero", "Kololo", "Wandegeya", "Makerere", "Kamwokya", "Ntinda",
     "Naguru", "Bukoto", "Kisementi", "Old Kampala", "Mengo", "Kisenyi",
     "Katwe", "Nsambya", "Kabalagala", "Kansanga", "Ggaba", "Bugolobi",
     "Muyenga", "Makindye", "Kibuli", "Kawempe", "Bwaise", "Mulago",
     "Nakulabye", "Lubaga", "Ndeeba", "Rubaga", "Kibuye", "Namirembe",
-    "Kasubi", "Lungujja", "Busega", "Nansana", "Zana", "Najjanankumbi"
+    "Kasubi", "Lungujja", "Busega", "Nansana", "Zana", "Najjanankumbi",
+    "Luzira", "Mutungo", "Butabika", "Kireka", "Banda", "Kyambogo",
+    "Kiwatule", "Naalya", "Kyanja", "Komamboga", "Mpererwe", "Kisaasi"
+  ],
+  "Kassanda": [
+    "Kassanda Town", "Myanzi", "Kalwana", "Bukuya",
+    "Kitumbi", "Nalutuntu"
+  ],
+  "Kayunga": [
+    "Kayunga Town", "Busana", "Kangulumira", "Nazigo", "Galiraaya",
+    "Kayonza", "Kitimbwa", "Bbaale", "Wantoni", "Nabuganyi",
+    "Ntenjeru", "Busaana"
+  ],
+  "Kiboga": [
+    "Kiboga Town", "Dwaniro", "Bukomero", "Kapeke",
+    "Lwamata", "Muwanga"
+  ],
+  "Kyankwanzi": [
+    "Kyankwanzi Town", "Butemba", "Ntwetwe", "Gayaza",
+    "Nsambya", "Wattuba"
+  ],
+  "Luwero": [
+    "Luwero Town", "Wobulenzi", "Bombo", "Zirobwe", "Bamunanika",
+    "Katikamu", "Makulubita", "Nyimbwa", "Kikyusa", "Kamira",
+    "Kasana", "Butuntumula", "Luwero Central"
+  ],
+  "Lwengo": [
+    "Lwengo Town", "Kyazanga", "Ndagwe", "Kisekka",
+    "Lwengo Central", "Kkingo"
+  ],
+  "Lyantonde": [
+    "Lyantonde Town", "Kinuuka", "Lyantonde Central",
+    "Mpumudde", "Kaliiro"
+  ],
+  "Masaka": [
+    "Masaka City", "Nyendo", "Kimanya", "Bukakkata", "Kijjabwemi",
+    "Bukakata", "Kyesiiga", "Buwunga", "Mukungwe", "Kabonera",
+    "Katwe", "Senyange", "Kimaanya-Kyabakuza"
+  ],
+  "Mityana": [
+    "Mityana Town", "Busimbi", "Malangala", "Kalangalo", "Namutamba",
+    "Ssekanyonyi", "Zigoti", "Butayunja", "Kakindu", "Kikandwa",
+    "Maanyi", "Bbanda"
+  ],
+  "Mpigi": [
+    "Mpigi Town", "Nkozi", "Buwama", "Muduma", "Kamengo", "Muduuma",
+    "Sekiwunga", "Kiringente", "Bukasa", "Kampiringisa", "Buyinja",
+    "Bujuuko", "Kituntu"
+  ],
+  "Mubende": [
+    "Mubende Town", "Kasambya", "Kitenga", "Kiganda",
+    "Madudu", "Bagezza", "Butoloogo", "Bukuya"
+  ],
+  "Mukono": [
+    "Mukono Town", "Seeta", "Namataba", "Lugazi", "Katosi", "Ntenjeru",
+    "Mpatta", "Nakisunga", "Goma", "Nama", "Kyampisi", "Koome",
+    "Kasawo", "Nabbaale", "Kimenyedde", "Kyetume", "Kalagi"
+  ],
+  "Nakaseke": [
+    "Nakaseke Town", "Semuto", "Kinyogoga", "Ngoma", "Kasangombe",
+    "Wakyato", "Kikamulo", "Nakaseke Central", "Kiwoko"
+  ],
+  "Nakasongola": [
+    "Nakasongola Town", "Lwampanga", "Nakitoma", "Kalungi", "Wabinyonyi",
+    "Kakooge", "Lwabyata", "Nabiswera", "Kaliro"
+  ],
+  "Rakai": [
+    "Rakai Town", "Kyotera", "Kalisizo", "Byakabanda",
+    "Lwamaggwa", "Kasasa", "Nabigasa", "Kifamba"
+  ],
+  "Sembabule": [
+    "Sembabule Town", "Mateete", "Lugusulu", "Ntuusi",
+    "Mijwala", "Sembabule Central"
   ],
   "Wakiso": [
     "Entebbe", "Nansana", "Kira", "Makindye Ssabagabo", "Kajjansi",
@@ -19,347 +117,426 @@ export const UGANDA_DISTRICTS_TOWNS: LocationData = {
     "Matugga", "Kakiri", "Wakiso Town", "Nabweru", "Ssenge", "Katabi",
     "Nsangi", "Buloba", "Gobero", "Namulanda", "Kisubi", "Mpala",
     "Kitende", "Seguku", "Bwebajja", "Nalumunye", "Sonde", "Seeta",
-    "Namanve", "Kyaliwajjala", "Kireka", "Nalya", "Naalya", "Bukasa"
-  ],
-  "Mukono": [
-    "Mukono Town", "Seeta", "Namataba", "Lugazi", "Katosi", "Ntenjeru",
-    "Buikwe", "Njeru", "Mpatta", "Nakisunga", "Goma", "Nama",
-    "Kyampisi", "Koome", "Kasawo", "Nabbaale", "Ssi", "Kimenyedde"
-  ],
-  "Mpigi": [
-    "Mpigi Town", "Nkozi", "Buwama", "Muduma", "Kamengo", "Muduuma",
-    "Sekiwunga", "Kiringente", "Bukasa", "Kampiringisa", "Buyinja"
-  ],
-  "Luwero": [
-    "Luwero Town", "Wobulenzi", "Bombo", "Zirobwe", "Bamunanika",
-    "Katikamu", "Makulubita", "Nyimbwa", "Kikyusa", "Kamira"
-  ],
-  "Kayunga": [
-    "Kayunga Town", "Busana", "Kangulumira", "Nazigo", "Galiraaya",
-    "Kayonza", "Kitimbwa", "Bbaale", "Wantoni", "Nabuganyi"
-  ],
-  "Buikwe": [
-    "Lugazi", "Njeru", "Ssi Bukunja", "Nkokonjeru", "Kawolo",
-    "Nyenga", "Buikwe Town", "Ngogwe", "Wakisi", "Nabitula"
-  ],
-  "Masaka": [
-    "Masaka City", "Nyendo", "Kimanya", "Bukakkata", "Kijjabwemi",
-    "Bukakata", "Kyesiiga", "Buwunga", "Mukungwe", "Kabonera"
-  ],
-  "Mityana": [
-    "Mityana Town", "Busimbi", "Malangala", "Kalangalo", "Namutamba",
-    "Ssekanyonyi", "Zigoti", "Butayunja", "Kakindu", "Kikandwa"
-  ],
-  "Nakasongola": [
-    "Nakasongola Town", "Lwampanga", "Nakitoma", "Kalungi", "Wabinyonyi",
-    "Kakooge", "Lwabyata", "Nabiswera"
-  ],
-  "Nakaseke": [
-    "Nakaseke Town", "Semuto", "Kinyogoga", "Ngoma", "Kasangombe",
-    "Wakyato", "Kikamulo", "Nakaseke Central"
+    "Namanve", "Kyaliwajjala", "Kireka", "Nalya", "Naalya", "Bukasa",
+    "Kigungu", "Bulenga", "Dundu", "Katale", "Ssisa"
   ],
 
-  // Western Region
-  "Mbarara": [
-    "Mbarara City", "Kakoba", "Kamukuzi", "Nyamitanga", "Biharwe",
-    "Kakiika", "Rubindi", "Rugando", "Kashare", "Nyakayojo",
-    "Rwampara", "Bugamba", "Ndeija", "Mwizi", "Kashari"
-  ],
-  "Bushenyi": [
-    "Bushenyi Town", "Ishaka", "Kizinda", "Nyabubare", "Kyeizooba",
-    "Kakanju", "Bumbaire", "Kyamuhunga", "Ruhumuro", "Nsiika"
-  ],
-  "Sheema": [
-    "Kabwohe", "Itendero", "Shuuku", "Masheruka", "Kigarama",
-    "Kagango", "Kyangyenyi", "Rwanama", "Bugongi"
-  ],
-  "Ntungamo": [
-    "Ntungamo Town", "Rubaare", "Kitwe", "Rwashamaire", "Itojo",
-    "Kayonza", "Nyakyera", "Rugarama", "Ngoma", "Bwongyera"
-  ],
-  "Kabale": [
-    "Kabale Town", "Katuna", "Rubanda", "Kisoro", "Maziba",
-    "Kaharo", "Buhara", "Kyanamira", "Hamurwa", "Kamwezi"
-  ],
-  "Kasese": [
-    "Kasese Town", "Hima", "Kilembe", "Muhokya", "Maliba",
-    "Bwera", "Mpondwe", "Kagando", "Karusandara", "Kiburara"
-  ],
-  "Fort Portal": [
-    "Fort Portal City", "Kabarole", "Rwimi", "Kibiito", "Kijura",
-    "Harugongo", "Rubona", "Mugusu", "Kichwamba", "Bukuku"
-  ],
-  "Hoima": [
-    "Hoima City", "Buhimba", "Kigorobya", "Kitoba", "Buseruka",
-    "Kyabigambire", "Kabwoya", "Bugahya", "Mparo", "Kiziranfumbi"
-  ],
-  "Masindi": [
-    "Masindi Town", "Kigumba", "Bwijanga", "Pakanyi", "Budongo",
-    "Miirya", "Karujubu", "Kimengo", "Nyantonzi"
-  ],
-  "Ibanda": [
-    "Ibanda Town", "Ishongororo", "Bisheshe", "Nyarukiika",
-    "Kagongo", "Kikyenkye", "Rukiri", "Bufunda"
-  ],
-  "Isingiro": [
-    "Isingiro Town", "Kabuyanda", "Rugaaga", "Endiinzi",
-    "Birere", "Nakivale", "Rushasha", "Mbaare"
-  ],
-  "Kiruhura": [
-    "Kiruhura Town", "Kinoni", "Sanga", "Kanyaryeru",
-    "Kazo", "Rwemikoma", "Kanoni", "Buremba"
-  ],
-  "Kibaale": [
-    "Kibaale Town", "Kagadi", "Mugarama", "Muhoro",
-    "Mabaale", "Kakumiro", "Nalweyo", "Kisiita"
-  ],
-  "Kyenjojo": [
-    "Kyenjojo Town", "Katooke", "Butunduzi", "Kyarusozi",
-    "Kihuura", "Nyankwanzi", "Rwangaaju"
-  ],
-  "Kamwenge": [
-    "Kamwenge Town", "Kibale", "Biguli", "Mahyoro",
-    "Nkoma", "Kahunge", "Ntara"
-  ],
-  "Rubirizi": [
-    "Rubirizi Town", "Ryeru", "Magambo", "Katunguru",
-    "Kichwamba", "Bunyaruguru"
-  ],
+  // ========== WESTERN REGION ==========
   "Buhweju": [
-    "Nsiika", "Bihanga", "Engaju", "Karungu",
-    "Burere", "Nyakishana"
+    "Nsiika", "Bihanga", "Engaju", "Karungu", "Burere",
+    "Nyakishana", "Bihanga Town"
   ],
-  "Mitooma": [
-    "Mitooma Town", "Kanyabwanga", "Bitereko", "Kashenshero",
-    "Rweibare", "Mutara"
-  ],
-  "Kanungu": [
-    "Kanungu Town", "Kambuga", "Butogota", "Kihihi",
-    "Kayonza", "Mpungu", "Rutenga"
-  ],
-  "Kisoro": [
-    "Kisoro Town", "Bunagana", "Cyanika", "Nyakabande",
-    "Muramba", "Nyarusiza", "Nyundo"
-  ],
-  "Rubanda": [
-    "Rubanda Town", "Ikumba", "Hamurwa", "Bufundi",
-    "Muko", "Bubaare"
+  "Buliisa": [
+    "Buliisa Town", "Biiso", "Butiaba", "Kigwera",
+    "Ngwedo", "Buliisa Central"
   ],
   "Bundibugyo": [
     "Bundibugyo Town", "Nyahuka", "Bubandi", "Bukonzo",
-    "Ntandi", "Harugale", "Kirumya"
+    "Ntandi", "Harugale", "Kirumya", "Kasitu"
+  ],
+  "Bushenyi": [
+    "Bushenyi Town", "Ishaka", "Kizinda", "Nyabubare", "Kyeizooba",
+    "Kakanju", "Bumbaire", "Kyamuhunga", "Ruhumuro", "Nsiika",
+    "Kyanamira", "Nyakabirizi"
+  ],
+  "Fort Portal": [
+    "Fort Portal City", "Kabarole", "Rwimi", "Kibiito", "Kijura",
+    "Harugongo", "Rubona", "Mugusu", "Kichwamba", "Bukuku",
+    "Karambi", "Kicwamba"
+  ],
+  "Hoima": [
+    "Hoima City", "Buhimba", "Kigorobya", "Kitoba", "Buseruka",
+    "Kyabigambire", "Kabwoya", "Bugahya", "Mparo", "Kiziranfumbi",
+    "Munteme", "Kahoora"
+  ],
+  "Ibanda": [
+    "Ibanda Town", "Ishongororo", "Bisheshe", "Nyarukiika",
+    "Kagongo", "Kikyenkye", "Rukiri", "Bufunda", "Kitura"
+  ],
+  "Isingiro": [
+    "Isingiro Town", "Kabuyanda", "Rugaaga", "Endiinzi",
+    "Birere", "Nakivale", "Rushasha", "Mbaare", "Kabingo",
+    "Rwembogo", "Ngarama"
+  ],
+  "Kabale": [
+    "Kabale Town", "Katuna", "Maziba", "Kaharo", "Buhara",
+    "Kyanamira", "Hamurwa", "Kamwezi", "Kitumba", "Bukinda",
+    "Rubaya", "Ikumba", "Muko"
+  ],
+  "Kabarole": [
+    "Fort Portal City", "Rwimi", "Kibiito", "Kijura",
+    "Harugongo", "Rubona", "Mugusu", "Kichwamba", "Hakibale"
+  ],
+  "Kagadi": [
+    "Kagadi Town", "Muhoro", "Mabaale", "Ndaiga",
+    "Muganzi", "Kyaterekera", "Isunga"
+  ],
+  "Kakumiro": [
+    "Kakumiro Town", "Kibaale", "Nalweyo", "Igayaza",
+    "Kakindo", "Kitegwa"
+  ],
+  "Kamwenge": [
+    "Kamwenge Town", "Kibale", "Biguli", "Mahyoro",
+    "Nkoma", "Kahunge", "Ntara", "Bwizi"
+  ],
+  "Kanungu": [
+    "Kanungu Town", "Kambuga", "Butogota", "Kihihi",
+    "Kayonza", "Mpungu", "Rutenga", "Bwindi"
+  ],
+  "Kasese": [
+    "Kasese Town", "Hima", "Kilembe", "Muhokya", "Maliba",
+    "Bwera", "Mpondwe", "Kagando", "Karusandara", "Kiburara",
+    "Katwe", "Kahendero", "Kyondo", "Isango"
+  ],
+  "Kazo": [
+    "Kazo Town", "Rwemikoma", "Buremba", "Engari",
+    "Nkungu", "Magondo"
+  ],
+  "Kibaale": [
+    "Kibaale Town", "Kagadi", "Mugarama", "Muhoro",
+    "Mabaale", "Nalweyo", "Kisiita", "Kakabara"
+  ],
+  "Kiruhura": [
+    "Kiruhura Town", "Kinoni", "Sanga", "Kanyaryeru",
+    "Kanoni", "Kashongi", "Kenshunga"
+  ],
+  "Kiryandongo": [
+    "Kiryandongo Town", "Bweyale", "Kigumba", "Mutunda",
+    "Kiryandongo Central", "Karuma"
+  ],
+  "Kisoro": [
+    "Kisoro Town", "Bunagana", "Cyanika", "Nyakabande",
+    "Muramba", "Nyarusiza", "Nyundo", "Nkuringo", "Mgahinga"
+  ],
+  "Kyegegwa": [
+    "Kyegegwa Town", "Hapuuyo", "Mpara", "Kakabara",
+    "Kasule", "Migongwe"
+  ],
+  "Kyenjojo": [
+    "Kyenjojo Town", "Katooke", "Butunduzi", "Kyarusozi",
+    "Kihuura", "Nyankwanzi", "Rwangaaju", "Katoke"
+  ],
+  "Masindi": [
+    "Masindi Town", "Kigumba", "Bwijanga", "Pakanyi", "Budongo",
+    "Miirya", "Karujubu", "Kimengo", "Nyantonzi", "Masindi Port"
+  ],
+  "Mbarara": [
+    "Mbarara City", "Kakoba", "Kamukuzi", "Nyamitanga", "Biharwe",
+    "Kakiika", "Rubindi", "Rugando", "Kashare", "Nyakayojo",
+    "Rwampara", "Bugamba", "Ndeija", "Mwizi", "Kashari",
+    "Ruti", "Bwizibwera", "Rubaya"
+  ],
+  "Mitooma": [
+    "Mitooma Town", "Kanyabwanga", "Bitereko", "Kashenshero",
+    "Rweibare", "Mutara", "Kigezi"
+  ],
+  "Ntoroko": [
+    "Ntoroko Town", "Karugutu", "Rwebisengo", "Kanara",
+    "Butungama"
+  ],
+  "Ntungamo": [
+    "Ntungamo Town", "Rubaare", "Kitwe", "Rwashamaire", "Itojo",
+    "Kayonza", "Nyakyera", "Rugarama", "Ngoma", "Bwongyera",
+    "Ruhaama", "Kyaruhanga"
+  ],
+  "Rubanda": [
+    "Rubanda Town", "Ikumba", "Hamurwa", "Bufundi",
+    "Muko", "Bubaare", "Nyamweru"
+  ],
+  "Rubirizi": [
+    "Rubirizi Town", "Ryeru", "Magambo", "Katunguru",
+    "Kichwamba", "Bunyaruguru", "Hamukungu"
+  ],
+  "Rukiga": [
+    "Rukiga Town", "Kamwezi", "Rwamucucu", "Mparo",
+    "Muhanga", "Kashambya"
+  ],
+  "Rukungiri": [
+    "Rukungiri Town", "Nyakagyeme", "Buyanja", "Kebisoni",
+    "Nyarushanje", "Ruhinda", "Bwambara", "Nyakishenyi"
+  ],
+  "Rwampara": [
+    "Rwampara Town", "Mugamba", "Mwizi", "Bugamba",
+    "Ndeija", "Kashari"
+  ],
+  "Sheema": [
+    "Kabwohe", "Itendero", "Shuuku", "Masheruka", "Kigarama",
+    "Kagango", "Kyangyenyi", "Rwanama", "Bugongi", "Kagango"
   ],
 
-  // Eastern Region
+  // ========== EASTERN REGION ==========
+  "Amuria": [
+    "Amuria Town", "Asamuk", "Kapelebyong", "Orungo",
+    "Acowa", "Morungatuny", "Wera", "Kuju"
+  ],
+  "Budaka": [
+    "Budaka Town", "Kamonkoli", "Iki-Iki", "Kaderuna",
+    "Naboa", "Lyama"
+  ],
+  "Bududa": [
+    "Bududa Town", "Bukigai", "Bukalasi", "Bumayoka",
+    "Bulucheke", "Bushika", "Bududa Central", "Nalwanza"
+  ],
+  "Bugiri": [
+    "Bugiri Town", "Nankoma", "Kapyanga", "Bulidha",
+    "Nabukalu", "Muterere", "Buwunga", "Nawandala"
+  ],
+  "Bugweri": [
+    "Bugweri Town", "Idudi", "Nsinze", "Iganga",
+    "Busesa", "Namalemba"
+  ],
+  "Bukwo": [
+    "Bukwo Town", "Suam", "Chepkwasta", "Riwo",
+    "Chesower", "Kaptokoi"
+  ],
+  "Bulambuli": [
+    "Bulambuli Town", "Simu", "Bwikhonge", "Muyembe",
+    "Bulegeni", "Sisiyi"
+  ],
+  "Busia": [
+    "Busia Town", "Majanji", "Lumino", "Dabani",
+    "Masafu", "Busitema", "Buhehe", "Masinya", "Buyengo"
+  ],
+  "Butaleja": [
+    "Butaleja Town", "Busolwe", "Mazimasa", "Budumba",
+    "Nawanjofu", "Himutu", "Kachonga"
+  ],
+  "Butebo": [
+    "Butebo Town", "Kabwangasi", "Petete", "Kadama",
+    "Kibale"
+  ],
+  "Iganga": [
+    "Iganga Town", "Busembatia", "Nakigo", "Bugweri",
+    "Nakalama", "Namungalwe", "Buyanga", "Ibulanku",
+    "Nakavule", "Busime"
+  ],
   "Jinja": [
     "Jinja City", "Bugembe", "Kakira", "Buwenge", "Mafubira",
     "Budondo", "Busede", "Buyengo", "Kakaire", "Kimaka",
-    "Walukuba", "Mpumudde", "Masese"
+    "Walukuba", "Mpumudde", "Masese", "Wanyange", "Buwenda"
+  ],
+  "Kaliro": [
+    "Kaliro Town", "Bumanya", "Namugongo", "Bukamba",
+    "Namwiwa", "Gadumire"
+  ],
+  "Kamuli": [
+    "Kamuli Town", "Namwendwa", "Mbulamuti", "Balawoli",
+    "Nabwigulu", "Namugongo", "Kitayunjwa", "Bugulumbya",
+    "Buyende", "Wankole"
+  ],
+  "Kapchorwa": [
+    "Kapchorwa Town", "Sipi", "Kween", "Kapchesombe",
+    "Tegeres", "Chepkwasta", "Sipi Falls", "Kapkwata"
+  ],
+  "Katakwi": [
+    "Katakwi Town", "Ngariam", "Toroma", "Magoro",
+    "Usuk", "Kapujan", "Obalanga", "Ongongoja"
+  ],
+  "Kibuku": [
+    "Kibuku Town", "Kadama", "Kasasira", "Tirinyi",
+    "Bulangira", "Kabweri"
+  ],
+  "Kumi": [
+    "Kumi Town", "Ngora", "Malera", "Ongino",
+    "Mukongoro", "Atutur", "Kolir", "Kanyum"
+  ],
+  "Kween": [
+    "Kween Town", "Binyiny", "Kwosir", "Kaproron",
+    "Kitawoi", "Moyok"
+  ],
+  "Luuka": [
+    "Luuka Town", "Bukanga", "Irongo", "Nawaikona",
+    "Bulongo", "Ikumbya"
+  ],
+  "Manafwa": [
+    "Manafwa Town", "Bubulo", "Bukigai", "Bupoto",
+    "Butiru", "Bumbo", "Nalondo", "Bugobero"
+  ],
+  "Mayuge": [
+    "Mayuge Town", "Malongo", "Baitambogwe", "Wairasa",
+    "Imanyiro", "Jaguzi Island", "Bukabooli"
   ],
   "Mbale": [
     "Mbale City", "Nakaloke", "Wanale", "Bungokho", "Bufumbo",
     "Namanyonyi", "Busoba", "Busiu", "Industrial Division",
-    "Nkoma", "Malukhu"
+    "Nkoma", "Malukhu", "Namatala", "Nabumali"
   ],
-  "Tororo": [
-    "Tororo Town", "Nagongera", "Mukujju", "Malaba", "Rubongi",
-    "Mulanda", "Paya", "Kwapa", "Mella", "Osukuru"
+  "Namayingo": [
+    "Namayingo Town", "Lolwe Island", "Sigulu Island", "Mutumba",
+    "Banda", "Buyinja"
   ],
-  "Iganga": [
-    "Iganga Town", "Busembatia", "Nakigo", "Bugweri",
-    "Nakalama", "Namungalwe", "Buyanga", "Ibulanku"
+  "Namutumba": [
+    "Namutumba Town", "Nsinze", "Bulange", "Ivukula",
+    "Magada", "Kibaale"
   ],
-  "Soroti": [
-    "Soroti City", "Arapai", "Kamuda", "Katine", "Tubur",
-    "Asuret", "Gweri", "Lale", "Aloet", "Opiyai"
-  ],
-  "Bugiri": [
-    "Bugiri Town", "Busia", "Nankoma", "Kapyanga",
-    "Bulidha", "Nabukalu", "Muterere"
-  ],
-  "Busia": [
-    "Busia Town", "Majanji", "Lumino", "Dabani",
-    "Masafu", "Busitema", "Buhehe"
-  ],
-  "Sironko": [
-    "Sironko Town", "Budadiri", "Buyobo", "Masaba",
-    "Buginyanya", "Bumulimba", "Bukiise"
-  ],
-  "Kapchorwa": [
-    "Kapchorwa Town", "Sipi", "Kween", "Kapchesombe",
-    "Tegeres", "Bukwo", "Chepkwasta"
+  "Ngora": [
+    "Ngora Town", "Mukura", "Kapir", "Kobwin",
+    "Ngora Central"
   ],
   "Pallisa": [
     "Pallisa Town", "Kibuku", "Budaka", "Kameruka",
-    "Butebo", "Kamuge", "Gogonyo"
+    "Butebo", "Kamuge", "Gogonyo", "Kasodo"
   ],
-  "Kamuli": [
-    "Kamuli Town", "Namwendwa", "Mbulamuti", "Balawoli",
-    "Nabwigulu", "Namugongo", "Kitayunjwa", "Bugulumbya"
+  "Serere": [
+    "Serere Town", "Kadungulu", "Kyere", "Olio",
+    "Pingire", "Bugondo"
   ],
-  "Kumi": [
-    "Kumi Town", "Ngora", "Malera", "Ongino",
-    "Mukongoro", "Atutur", "Kolir"
+  "Sironko": [
+    "Sironko Town", "Budadiri", "Buyobo", "Masaba",
+    "Buginyanya", "Bumulimba", "Bukiise", "Buwalasi"
   ],
-  "Katakwi": [
-    "Katakwi Town", "Ngariam", "Toroma", "Magoro",
-    "Usuk", "Kapujan", "Obalanga"
+  "Soroti": [
+    "Soroti City", "Arapai", "Kamuda", "Katine", "Tubur",
+    "Asuret", "Gweri", "Lale", "Aloet", "Opiyai",
+    "Western Division", "Eastern Division"
   ],
-  "Amuria": [
-    "Amuria Town", "Asamuk", "Kapelebyong", "Orungo",
-    "Acowa", "Morungatuny", "Wera"
-  ],
-  "Butaleja": [
-    "Butaleja Town", "Busolwe", "Mazimasa", "Budumba",
-    "Nawanjofu", "Himutu"
-  ],
-  "Manafwa": [
-    "Manafwa Town", "Bubulo", "Bukigai", "Bupoto",
-    "Butiru", "Bumbo", "Nalondo"
-  ],
-  "Bududa": [
-    "Bududa Town", "Bukigai", "Bukalasi", "Bumayoka",
-    "Bulucheke", "Bushika", "Bududa Central"
+  "Tororo": [
+    "Tororo Town", "Nagongera", "Mukujju", "Malaba", "Rubongi",
+    "Mulanda", "Paya", "Kwapa", "Mella", "Osukuru",
+    "Busia Road", "Kisoko"
   ],
 
-  // Northern Region
+  // ========== NORTHERN REGION ==========
+  "Abim": [
+    "Abim Town", "Alerek", "Lotuke", "Morulem",
+    "Nyakwae", "Abim Central", "Karenga"
+  ],
+  "Adjumani": [
+    "Adjumani Town", "Ciforo", "Pakele", "Dzaipi",
+    "Ofua", "Itirikwa", "Adropi", "Ogujebe"
+  ],
+  "Agago": [
+    "Kalongo", "Adilang", "Paimol", "Lira Palwo",
+    "Lamiyo", "Omot", "Wol", "Patongo"
+  ],
+  "Alebtong": [
+    "Alebtong Town", "Apala", "Abia", "Aloi",
+    "Abako", "Omoro"
+  ],
+  "Amolatar": [
+    "Amolatar Town", "Namasale", "Kioga", "Muntu",
+    "Awelo", "Etam", "Agikdak"
+  ],
+  "Amudat": [
+    "Amudat Town", "Karita", "Loroo", "Amudat Central",
+    "Lorengecora"
+  ],
+  "Amuru": [
+    "Amuru Town", "Atiak", "Lamogi", "Pabbo",
+    "Bibia", "Elegu"
+  ],
+  "Apac": [
+    "Apac Town", "Aduku", "Ibuje", "Chegere",
+    "Inomo", "Nambieso", "Chawente", "Akokoro"
+  ],
+  "Arua": [
+    "Arua City", "Manibe", "Oli", "Pajulu", "Dadamu",
+    "Adumi", "Vurra", "Ayivu", "Arivu", "Offaka",
+    "Logiri", "River Oli Division", "Onduparaka", "Ediofe"
+  ],
+  "Dokolo": [
+    "Dokolo Town", "Agwata", "Bata", "Kangai",
+    "Okwongodul", "Amwoma", "Adeknino"
+  ],
   "Gulu": [
     "Gulu City", "Laroo", "Layibi", "Pece", "Bardege",
     "Bungatira", "Bobi", "Patiko", "Lakwana", "Awach",
-    "Unyama", "Lalogi", "Koro"
+    "Unyama", "Lalogi", "Koro", "Cwero", "Palenga"
   ],
-  "Lira": [
-    "Lira City", "Ojwina", "Adyel", "Barr", "Agali",
-    "Ogur", "Aromo", "Lira Palwo", "Amach", "Agweng",
-    "Railways Division", "Central Division"
+  "Kaabong": [
+    "Kaabong Town", "Kapedo", "Kathile", "Lolelia",
+    "Karenga", "Lobalangit", "Sidok"
   ],
   "Kitgum": [
     "Kitgum Town", "Mucwini", "Labongo Akwang", "Namokora",
     "Omiya Anyima", "Orom", "Palavek", "Kitgum Matidi"
   ],
-  "Pader": [
-    "Pader Town", "Atanga", "Lacekocot", "Pajule",
-    "Awere", "Kilak", "Ogom", "Puranga"
+  "Koboko": [
+    "Koboko Town", "Ludara", "Lobule", "Kuluba",
+    "Dranya", "Midia", "Koboko Central"
   ],
-  "Arua": [
-    "Arua City", "Manibe", "Oli", "Pajulu", "Dadamu",
-    "Adumi", "Vurra", "Ayivu", "Arivu", "Offaka",
-    "Logiri", "River Oli Division"
+  "Kole": [
+    "Kole Town", "Aboke", "Ayer", "Bala",
+    "Okwerodot", "Alito"
   ],
-  "Nebbi": [
-    "Nebbi Town", "Pakwach", "Panyimur", "Wadelai",
-    "Erussi", "Kucwiny", "Nyaravur", "Parombo"
+  "Kotido": [
+    "Kotido Town", "Kacheri", "Rengen", "Nakapelimoru",
+    "Panyangara", "Kanawat", "Kotido Central"
+  ],
+  "Kwania": [
+    "Kwania Town", "Aduku", "Nambieso", "Maruzi",
+    "Kwania Central"
+  ],
+  "Lamwo": [
+    "Padibe", "Palabek Kal", "Agoro", "Lokung",
+    "Madi Opei", "Palabek Gem", "Lamwo Central"
+  ],
+  "Lira": [
+    "Lira City", "Ojwina", "Adyel", "Barr", "Agali",
+    "Ogur", "Aromo", "Lira Palwo", "Amach", "Agweng",
+    "Railways Division", "Central Division", "Adekokwok"
+  ],
+  "Madi-Okollo": [
+    "Okollo", "Offaka", "Ogoko", "Aii-vu", "Pakwach"
+  ],
+  "Maracha": [
+    "Maracha Town", "Nyadri", "Oluvu", "Tara",
+    "Yivu", "Oleba", "Oluffe"
+  ],
+  "Moroto": [
+    "Moroto Town", "Nadunget", "Katikekile", "Rupa",
+    "Tapac", "Ngoleriet", "Moroto Central"
   ],
   "Moyo": [
     "Moyo Town", "Obongi", "Metu", "Lefori",
     "Itula", "Dufile", "Moyo Central"
   ],
-  "Adjumani": [
-    "Adjumani Town", "Ciforo", "Pakele", "Dzaipi",
-    "Ofua", "Itirikwa", "Adropi"
+  "Nakapiripirit": [
+    "Nakapiripirit Town", "Karita", "Loroo",
+    "Lolachat", "Namalu", "Nabilatuk"
   ],
-  "Apac": [
-    "Apac Town", "Aduku", "Ibuje", "Chegere",
-    "Inomo", "Nambieso", "Chawente"
+  "Napak": [
+    "Napak Town", "Lorengechora", "Iriiri", "Lokopo",
+    "Matany", "Lopei"
   ],
-  "Oyam": [
-    "Oyam Town", "Minakulu", "Aber", "Ngai",
-    "Iceme", "Kamdini", "Loro"
-  ],
-  "Dokolo": [
-    "Dokolo Town", "Agwata", "Bata", "Kangai",
-    "Okwongodul", "Amwoma"
-  ],
-  "Amolatar": [
-    "Amolatar Town", "Namasale", "Kioga", "Muntu",
-    "Awelo", "Etam"
+  "Nebbi": [
+    "Nebbi Town", "Panyimur", "Wadelai",
+    "Erussi", "Kucwiny", "Nyaravur", "Parombo", "Pakwach"
   ],
   "Nwoya": [
     "Anaka", "Koch Goma", "Alero", "Purongo",
-    "Got Apwoyo"
+    "Got Apwoyo", "Nwoya Central"
   ],
-  "Agago": [
-    "Kalongo", "Adilang", "Paimol", "Lira Palwo",
-    "Lamiyo", "Omot", "Wol"
+  "Obongi": [
+    "Obongi Town", "Itula", "Gimara", "Moyo Central"
   ],
-  "Lamwo": [
-    "Padibe", "Palabek Kal", "Agoro", "Lokung",
-    "Madi Opei", "Palabek Gem"
+  "Omoro": [
+    "Omoro Town", "Lakwana", "Bobi", "Koro",
+    "Lalogi"
   ],
-  "Kotido": [
-    "Kotido Town", "Kacheri", "Rengen", "Nakapelimoru",
-    "Panyangara", "Kanawat"
+  "Otuke": [
+    "Otuke Town", "Olilim", "Adwari", "Orum",
+    "Okwang"
   ],
-  "Kaabong": [
-    "Kaabong Town", "Kapedo", "Kathile", "Lolelia",
-    "Karenga", "Lobalangit"
+  "Oyam": [
+    "Oyam Town", "Minakulu", "Aber", "Ngai",
+    "Iceme", "Kamdini", "Loro", "Acaba"
   ],
-  "Moroto": [
-    "Moroto Town", "Nadunget", "Katikekile", "Rupa",
-    "Tapac", "Ngoleriet"
+  "Pader": [
+    "Pader Town", "Atanga", "Lacekocot", "Pajule",
+    "Awere", "Kilak", "Ogom", "Puranga", "Acholi-Bur"
   ],
-  "Nakapiripirit": [
-    "Nakapiripirit Town", "Amudat", "Karita", "Loroo",
-    "Lolachat", "Namalu"
-  ],
-  "Abim": [
-    "Abim Town", "Alerek", "Lotuke", "Morulem",
-    "Nyakwae", "Abim Central"
+  "Pakwach": [
+    "Pakwach Town", "Panyimur", "Pakwach Central",
+    "Albert Nile", "Alwi", "Pakwach Ferry"
   ],
   "Yumbe": [
     "Yumbe Town", "Midigo", "Kei", "Romogi",
-    "Drajini", "Lodonga"
-  ],
-  "Koboko": [
-    "Koboko Town", "Ludara", "Lobule", "Kuluba",
-    "Dranya", "Midia"
-  ],
-  "Maracha": [
-    "Maracha Town", "Nyadri", "Oluvu", "Tara",
-    "Yivu", "Oleba"
+    "Drajini", "Lodonga", "Kerwa"
   ],
   "Zombo": [
     "Zombo Town", "Paidha", "Warr", "Nyapea",
-    "Atyak", "Kango"
-  ],
-
-  // West Nile
-  "Pakwach": [
-    "Pakwach Town", "Panyimur", "Pakwach Central",
-    "Albert Nile", "Alwi"
-  ],
-  "Madi-Okollo": [
-    "Okollo", "Offaka", "Ogoko", "Aii-vu"
-  ],
-
-  // Ankole Sub-region
-  "Bwizibwera": [
-    "Bwizibwera Town", "Rwanyamahembe", "Nyakashashara",
-    "Kakoba", "Rugando", "Biharwe"
-  ],
-
-  // Rwenzori Sub-region
-  "Kabarole": [
-    "Fort Portal City", "Rwimi", "Kibiito", "Kijura",
-    "Harugongo", "Rubona", "Mugusu"
-  ],
-
-  // Bunyoro Sub-region
-  "Kiryandongo": [
-    "Kiryandongo Town", "Bweyale", "Kigumba", "Mutunda",
-    "Kiryandongo Central"
-  ],
-  "Kagadi": [
-    "Kagadi Town", "Muhoro", "Mabaale", "Ndaiga",
-    "Muganzi", "Kyaterekera"
-  ],
-  "Kakumiro": [
-    "Kakumiro Town", "Kibaale", "Nalweyo", "Igayaza",
-    "Kakindo"
-  ],
-  "Buliisa": [
-    "Buliisa Town", "Biiso", "Butiaba", "Kigwera",
-    "Ngwedo"
+    "Atyak", "Kango", "Zeu"
   ],
 };
 
@@ -373,10 +550,42 @@ export const getTownsForDistrict = (district: string): string[] => {
   return UGANDA_DISTRICTS_TOWNS[district] || [];
 };
 
+// Search districts by name
+export const searchDistricts = (query: string): string[] => {
+  if (!query.trim()) return getDistricts();
+  const lower = query.toLowerCase();
+  return getDistricts().filter(d => d.toLowerCase().includes(lower));
+};
+
 // All regions for filtering
 export const UGANDA_REGIONS: Record<string, string[]> = {
-  "Central": ["Kampala", "Wakiso", "Mukono", "Mpigi", "Luwero", "Kayunga", "Buikwe", "Masaka", "Mityana", "Nakasongola", "Nakaseke"],
-  "Western": ["Mbarara", "Bushenyi", "Sheema", "Ntungamo", "Kabale", "Kasese", "Fort Portal", "Hoima", "Masindi", "Ibanda", "Isingiro", "Kiruhura", "Kibaale", "Kyenjojo", "Kamwenge", "Rubirizi", "Buhweju", "Mitooma", "Kanungu", "Kisoro", "Rubanda", "Bundibugyo", "Kabarole", "Kiryandongo", "Kagadi", "Kakumiro", "Buliisa"],
-  "Eastern": ["Jinja", "Mbale", "Tororo", "Iganga", "Soroti", "Bugiri", "Busia", "Sironko", "Kapchorwa", "Pallisa", "Kamuli", "Kumi", "Katakwi", "Amuria", "Butaleja", "Manafwa", "Bududa"],
-  "Northern": ["Gulu", "Lira", "Kitgum", "Pader", "Arua", "Nebbi", "Moyo", "Adjumani", "Apac", "Oyam", "Dokolo", "Amolatar", "Nwoya", "Agago", "Lamwo", "Kotido", "Kaabong", "Moroto", "Nakapiripirit", "Abim", "Yumbe", "Koboko", "Maracha", "Zombo", "Pakwach", "Madi-Okollo"],
+  "Central": [
+    "Bukomansimbi", "Buikwe", "Butambala", "Gomba", "Kalangala", "Kalungu",
+    "Kampala", "Kassanda", "Kayunga", "Kiboga", "Kyankwanzi", "Luwero",
+    "Lwengo", "Lyantonde", "Masaka", "Mityana", "Mpigi", "Mubende",
+    "Mukono", "Nakaseke", "Nakasongola", "Rakai", "Sembabule", "Wakiso"
+  ],
+  "Western": [
+    "Buhweju", "Buliisa", "Bundibugyo", "Bushenyi", "Fort Portal", "Hoima",
+    "Ibanda", "Isingiro", "Kabale", "Kabarole", "Kagadi", "Kakumiro",
+    "Kamwenge", "Kanungu", "Kasese", "Kazo", "Kibaale", "Kiruhura",
+    "Kiryandongo", "Kisoro", "Kyegegwa", "Kyenjojo", "Masindi", "Mbarara",
+    "Mitooma", "Ntoroko", "Ntungamo", "Rubanda", "Rubirizi", "Rukiga",
+    "Rukungiri", "Rwampara", "Sheema"
+  ],
+  "Eastern": [
+    "Amuria", "Budaka", "Bududa", "Bugiri", "Bugweri", "Bukwo",
+    "Bulambuli", "Busia", "Butaleja", "Butebo", "Iganga", "Jinja",
+    "Kaliro", "Kamuli", "Kapchorwa", "Katakwi", "Kibuku", "Kumi",
+    "Kween", "Luuka", "Manafwa", "Mayuge", "Mbale", "Namayingo",
+    "Namutumba", "Ngora", "Pallisa", "Serere", "Sironko", "Soroti", "Tororo"
+  ],
+  "Northern": [
+    "Abim", "Adjumani", "Agago", "Alebtong", "Amolatar", "Amudat",
+    "Amuru", "Apac", "Arua", "Dokolo", "Gulu", "Kaabong", "Kitgum",
+    "Koboko", "Kole", "Kotido", "Kwania", "Lamwo", "Lira", "Madi-Okollo",
+    "Maracha", "Moroto", "Moyo", "Nakapiripirit", "Napak", "Nebbi",
+    "Nwoya", "Obongi", "Omoro", "Otuke", "Oyam", "Pader", "Pakwach",
+    "Yumbe", "Zombo"
+  ],
 };

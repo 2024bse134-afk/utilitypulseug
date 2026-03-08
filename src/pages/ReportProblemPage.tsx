@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useMemo } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { useAuth } from "@/contexts/AuthContext";
 import { supabase } from "@/integrations/supabase/client";
@@ -6,11 +6,10 @@ import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { ArrowLeft, AlertTriangle, CheckCircle2, MapPin, Zap, Droplets, FileWarning, Search } from "lucide-react";
+import { ArrowLeft, AlertTriangle, CheckCircle2, MapPin, Zap, Droplets, FileWarning, Search, ChevronDown, X } from "lucide-react";
 import { toast } from "sonner";
 import { Input } from "@/components/ui/input";
-import { getDistricts, getTownsForDistrict } from "@/data/ugandaLocations";
+import { getDistricts, getTownsForDistrict, searchDistricts } from "@/data/ugandaLocations";
 
 const ELECTRICITY_PROBLEMS = [
   { value: "Power outage", icon: "⚡", desc: "Complete loss of electricity" },
@@ -34,10 +33,12 @@ export default function ReportProblemPage() {
   const [loading, setLoading] = useState(false);
   const [submitted, setSubmitted] = useState(false);
   const [townSearch, setTownSearch] = useState("");
+  const [districtSearch, setDistrictSearch] = useState("");
+  const [showDistrictDropdown, setShowDistrictDropdown] = useState(false);
 
   const isElectricity = utility === "electricity";
   const problems = isElectricity ? ELECTRICITY_PROBLEMS : WATER_PROBLEMS;
-  const districts = getDistricts();
+  const filteredDistricts = useMemo(() => searchDistricts(districtSearch), [districtSearch]);
   const towns = district ? getTownsForDistrict(district) : [];
   const filteredTowns = townSearch
     ? towns.filter(t => t.toLowerCase().includes(townSearch.toLowerCase()))
@@ -184,25 +185,66 @@ export default function ReportProblemPage() {
             <form onSubmit={handleSubmit} className="space-y-4">
               <div className="space-y-2">
                 <Label className="text-sm font-medium">District</Label>
-                <Select
-                  value={district}
-                  onValueChange={(v) => {
-                    setDistrict(v);
-                    setTownVillage("");
-                    setTownSearch("");
-                  }}
-                >
-                  <SelectTrigger className="rounded-xl h-11 bg-background/50">
-                    <SelectValue placeholder="🇺🇬 Select your district" />
-                  </SelectTrigger>
-                  <SelectContent className="max-h-64">
-                    {districts.map((d) => (
-                      <SelectItem key={d} value={d}>
-                        {d}
-                      </SelectItem>
-                    ))}
-                  </SelectContent>
-                </Select>
+                <div className="relative">
+                  <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground z-10" />
+                  <Input
+                    placeholder="🇺🇬 Search & select district..."
+                    value={showDistrictDropdown ? districtSearch : district || ""}
+                    onChange={(e) => {
+                      setDistrictSearch(e.target.value);
+                      setShowDistrictDropdown(true);
+                      if (district) {
+                        setDistrict("");
+                        setTownVillage("");
+                        setTownSearch("");
+                      }
+                    }}
+                    onFocus={() => setShowDistrictDropdown(true)}
+                    className="pl-9 pr-9 rounded-xl h-11 bg-background/50"
+                  />
+                  {district && (
+                    <button
+                      type="button"
+                      onClick={() => {
+                        setDistrict("");
+                        setDistrictSearch("");
+                        setTownVillage("");
+                        setTownSearch("");
+                        setShowDistrictDropdown(true);
+                      }}
+                      className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground z-10"
+                    >
+                      <X className="w-4 h-4" />
+                    </button>
+                  )}
+                  {!district && (
+                    <ChevronDown className="absolute right-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground pointer-events-none" />
+                  )}
+                  {showDistrictDropdown && !district && (
+                    <div className="absolute z-20 w-full mt-1 bg-popover border border-border rounded-xl shadow-lg max-h-52 overflow-y-auto">
+                      {filteredDistricts.length > 0 ? (
+                        filteredDistricts.map((d) => (
+                          <button
+                            key={d}
+                            type="button"
+                            onClick={() => {
+                              setDistrict(d);
+                              setDistrictSearch("");
+                              setShowDistrictDropdown(false);
+                              setTownVillage("");
+                              setTownSearch("");
+                            }}
+                            className="w-full text-left px-4 py-2.5 text-sm hover:bg-accent hover:text-accent-foreground transition-colors first:rounded-t-xl last:rounded-b-xl"
+                          >
+                            {d}
+                          </button>
+                        ))
+                      ) : (
+                        <p className="px-4 py-3 text-sm text-muted-foreground text-center">No districts found</p>
+                      )}
+                    </div>
+                  )}
+                </div>
               </div>
 
               <div className="space-y-2">
