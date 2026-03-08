@@ -185,25 +185,66 @@ export default function ReportProblemPage() {
             <form onSubmit={handleSubmit} className="space-y-4">
               <div className="space-y-2">
                 <Label className="text-sm font-medium">District</Label>
-                <Select
-                  value={district}
-                  onValueChange={(v) => {
-                    setDistrict(v);
-                    setTownVillage("");
-                    setTownSearch("");
-                  }}
-                >
-                  <SelectTrigger className="rounded-xl h-11 bg-background/50">
-                    <SelectValue placeholder="🇺🇬 Select your district" />
-                  </SelectTrigger>
-                  <SelectContent className="max-h-64">
-                    {districts.map((d) => (
-                      <SelectItem key={d} value={d}>
-                        {d}
-                      </SelectItem>
-                    ))}
-                  </SelectContent>
-                </Select>
+                <div className="relative">
+                  <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground z-10" />
+                  <Input
+                    placeholder="🇺🇬 Search & select district..."
+                    value={showDistrictDropdown ? districtSearch : district || ""}
+                    onChange={(e) => {
+                      setDistrictSearch(e.target.value);
+                      setShowDistrictDropdown(true);
+                      if (district) {
+                        setDistrict("");
+                        setTownVillage("");
+                        setTownSearch("");
+                      }
+                    }}
+                    onFocus={() => setShowDistrictDropdown(true)}
+                    className="pl-9 pr-9 rounded-xl h-11 bg-background/50"
+                  />
+                  {district && (
+                    <button
+                      type="button"
+                      onClick={() => {
+                        setDistrict("");
+                        setDistrictSearch("");
+                        setTownVillage("");
+                        setTownSearch("");
+                        setShowDistrictDropdown(true);
+                      }}
+                      className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground z-10"
+                    >
+                      <X className="w-4 h-4" />
+                    </button>
+                  )}
+                  {!district && (
+                    <ChevronDown className="absolute right-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground pointer-events-none" />
+                  )}
+                  {showDistrictDropdown && !district && (
+                    <div className="absolute z-20 w-full mt-1 bg-popover border border-border rounded-xl shadow-lg max-h-52 overflow-y-auto">
+                      {filteredDistricts.length > 0 ? (
+                        filteredDistricts.map((d) => (
+                          <button
+                            key={d}
+                            type="button"
+                            onClick={() => {
+                              setDistrict(d);
+                              setDistrictSearch("");
+                              setShowDistrictDropdown(false);
+                              setTownVillage("");
+                              setTownSearch("");
+                            }}
+                            className="w-full text-left px-4 py-2.5 text-sm hover:bg-accent hover:text-accent-foreground transition-colors first:rounded-t-xl last:rounded-b-xl"
+                          >
+                            {d}
+                          </button>
+                        ))
+                      ) : (
+                        <p className="px-4 py-3 text-sm text-muted-foreground text-center">No districts found</p>
+                      )}
+                    </div>
+                  )}
+                </div>
               </div>
 
               <div className="space-y-2">
