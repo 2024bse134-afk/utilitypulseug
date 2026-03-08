@@ -11,7 +11,7 @@ import { toast } from "sonner";
 import type { Tables } from "@/integrations/supabase/types";
 
 type Report = Tables<"reports">;
-type Verification = Tables<"verifications"> & { profiles?: { full_name: string; district: string; town_village: string } | null };
+type Verification = Tables<"verifications"> & { user_name?: string; user_location?: string };
 
 export default function AdminDashboard() {
   const navigate = useNavigate();
