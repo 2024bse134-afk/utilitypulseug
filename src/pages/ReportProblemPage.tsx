@@ -113,9 +113,17 @@ export default function ReportProblemPage() {
   }
 
   return (
-    <div className="min-h-screen p-4 relative overflow-hidden">
-      <div className={`absolute inset-0 bg-gradient-to-br ${isElectricity ? "from-electricity/5 via-electricity/2" : "from-water/5 via-water/2"} to-background`} />
-      <div className="max-w-lg mx-auto pt-6 relative z-10">
+    <div className="min-h-screen relative overflow-hidden">
+      {/* Background image */}
+      <div className="absolute inset-0">
+        <img
+          src={isElectricity ? reportElectricityBg : reportWaterBg}
+          alt={isElectricity ? "Electricity infrastructure" : "Water infrastructure"}
+          className="w-full h-full object-cover"
+        />
+        <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-black/20 to-background/95" />
+      </div>
+      <div className="relative z-10 max-w-lg mx-auto p-4 pt-6">
         {/* Header */}
         <div className="flex items-center gap-3 mb-6">
           <Button variant="ghost" size="icon" onClick={() => navigate(`/${utility}`)} className="rounded-xl hover:bg-muted/80">
