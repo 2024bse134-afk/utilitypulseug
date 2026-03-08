@@ -3,6 +3,20 @@ import { useAuth } from "@/contexts/AuthContext";
 import { Zap, Droplets, LogOut, Shield, ChevronRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
+const WaterDrop = ({ className, delay, duration, size }: { className?: string; delay: string; duration: string; size: number }) => (
+  <div
+    className={`absolute rounded-full bg-water/15 animate-bounce ${className}`}
+    style={{
+      width: size,
+      height: size * 1.3,
+      borderRadius: '50% 50% 50% 50% / 60% 60% 40% 40%',
+      animationDelay: delay,
+      animationDuration: duration,
+      filter: 'blur(0.5px)',
+    }}
+  />
+);
+
 export default function UtilitySelection() {
   const { profile, isAdmin, signOut } = useAuth();
   const navigate = useNavigate();
@@ -12,6 +26,18 @@ export default function UtilitySelection() {
       <div className="absolute inset-0 bg-gradient-to-br from-electricity/5 via-background to-water/5" />
       <div className="absolute top-20 right-0 w-72 h-72 bg-electricity/8 rounded-full blur-3xl" />
       <div className="absolute bottom-20 left-0 w-72 h-72 bg-water/8 rounded-full blur-3xl" />
+
+      {/* Water drops */}
+      <WaterDrop className="top-[10%] left-[8%]" delay="0s" duration="3s" size={12} />
+      <WaterDrop className="top-[25%] right-[12%]" delay="0.5s" duration="2.5s" size={8} />
+      <WaterDrop className="top-[45%] left-[15%]" delay="1s" duration="3.5s" size={10} />
+      <WaterDrop className="top-[60%] right-[20%]" delay="1.5s" duration="2.8s" size={14} />
+      <WaterDrop className="top-[75%] left-[25%]" delay="0.3s" duration="3.2s" size={9} />
+      <WaterDrop className="top-[15%] right-[30%]" delay="2s" duration="2.6s" size={7} />
+      <WaterDrop className="top-[85%] right-[8%]" delay="0.8s" duration="3s" size={11} />
+      <WaterDrop className="top-[35%] left-[80%]" delay="1.2s" duration="2.9s" size={6} />
+      <WaterDrop className="top-[55%] left-[5%]" delay="1.8s" duration="3.4s" size={13} />
+      <WaterDrop className="top-[5%] left-[50%]" delay="0.7s" duration="2.7s" size={8} />
 
       <div className="max-w-lg mx-auto pt-8 relative z-10">
         {/* Header */}
