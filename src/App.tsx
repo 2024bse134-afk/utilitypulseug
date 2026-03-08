@@ -28,6 +28,7 @@ const App = () => (
           <Routes>
             <Route path="/" element={<Index />} />
             <Route path="/auth" element={<AuthPage />} />
+            <Route path="/reset-password" element={<ResetPasswordPage />} />
             <Route path="/electricity" element={<ElectricityDashboard />} />
             <Route path="/water" element={<WaterDashboard />} />
             <Route path="/pay/:utility" element={<PaymentPage />} />
