@@ -32,8 +32,10 @@ export default function ElectricityDashboard() {
 
   return (
     <div className="min-h-screen p-4 relative overflow-hidden">
-      <div className="absolute inset-0 bg-gradient-to-br from-electricity/5 via-background to-electricity/3" />
-      <div className="absolute top-0 right-0 w-64 h-64 bg-electricity/10 rounded-full blur-3xl" />
+      <div className="absolute inset-0">
+        <img src={electricPoleWorker} alt="Electric pole workers" className="w-full h-full object-cover" />
+        <div className="absolute inset-0 bg-background/50" />
+      </div>
 
       <div className="max-w-lg mx-auto pt-6 relative z-10">
         <div className="flex items-center justify-between mb-6">
