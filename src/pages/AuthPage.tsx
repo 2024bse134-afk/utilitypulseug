@@ -141,7 +141,7 @@ export default function AuthPage() {
               </div>
               <Button
                 type="submit"
-                className="w-full h-12 text-base font-bold rounded-xl bg-gradient-to-r from-electricity to-amber-500 hover:from-amber-500 hover:to-electricity text-black shadow-lg hover:shadow-xl transition-all duration-300"
+                className="w-full h-12 text-base font-bold rounded-xl bg-primary hover:bg-primary/90 text-primary-foreground shadow-lg hover:shadow-xl transition-all duration-300"
                 disabled={loading}
               >
                 {loading ? "Please wait..." : isLogin ? "Sign In" : "Create Account"}
