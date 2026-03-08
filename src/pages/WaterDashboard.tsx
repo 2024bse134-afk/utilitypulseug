@@ -51,8 +51,8 @@ export default function WaterDashboard() {
           >
             <ArrowLeft className="w-5 h-5" />
           </Button>
-          <div className="flex items-center gap-2">
-            <div className="w-9 h-9 rounded-xl gradient-water flex items-center justify-center shadow-glow-water">
+          <div className="flex items-center gap-2.5 bg-water/30 backdrop-blur-md rounded-full px-4 py-1.5">
+            <div className="w-8 h-8 rounded-lg gradient-water flex items-center justify-center shadow-glow-water">
               <Droplets className="w-4 h-4 text-water-foreground" />
             </div>
             <h1 className="text-lg font-heading font-bold text-white drop-shadow-lg">Water</h1>
@@ -76,7 +76,7 @@ export default function WaterDashboard() {
         </div>
 
         {/* Main content area with rounded top */}
-        <div className="bg-background rounded-t-3xl min-h-[calc(100vh-13rem)] px-4 pt-6 pb-8 shadow-[0_-8px_30px_rgba(0,0,0,0.12)]">
+        <div className="bg-background/95 backdrop-blur-sm rounded-t-3xl min-h-[calc(100vh-13rem)] px-4 pt-6 pb-8 shadow-[0_-8px_30px_rgba(0,0,0,0.12)]">
           {/* Units Card */}
           <div className="rounded-2xl gradient-water p-5 mb-6 shadow-glow-water">
             <div className="flex items-center justify-between mb-3">
