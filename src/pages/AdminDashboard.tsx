@@ -369,7 +369,7 @@ export default function AdminDashboard() {
             </Card>
 
             {/* All Area Hotspots */}
-            <Card className="shadow-card glass border-border/50">
+            <Card className="shadow-card bg-card/95 backdrop-blur-md border-border/50">
               <CardHeader>
                 <CardTitle className="text-lg flex items-center gap-2">
                   <Flame className="w-5 h-5 text-status-confirmed" />
