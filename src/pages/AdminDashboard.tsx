@@ -131,7 +131,7 @@ export default function AdminDashboard() {
             <Button variant="ghost" size="icon" onClick={() => navigate("/")} className="rounded-xl">
               <Home className="w-5 h-5" />
             </Button>
-            <h1 className="text-2xl font-heading font-bold">Admin Dashboard</h1>
+            <h1 className="text-2xl font-heading font-bold text-white drop-shadow-lg">Admin Dashboard</h1>
           </div>
           <Button variant="ghost" size="sm" onClick={signOut} className="rounded-xl">
             Sign out
