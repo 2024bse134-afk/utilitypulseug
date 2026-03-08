@@ -31,6 +31,19 @@ export default function AdminDashboard() {
       return;
     }
     fetchData();
+
+    const channel = supabase
+      .channel("admin-reports")
+      .on(
+        "postgres_changes",
+        { event: "*", schema: "public", table: "reports" },
+        () => fetchData()
+      )
+      .subscribe();
+
+    return () => {
+      supabase.removeChannel(channel);
+    };
   }, [isAdmin]);
 
   const fetchData = async () => {
