@@ -206,22 +206,27 @@ export default function AuthPage() {
                   {district && (
                     <div className="space-y-2">
                       <Label>Town / Village</Label>
-                      <div className="grid grid-cols-2 gap-1.5 max-h-32 overflow-y-auto rounded-xl border border-border/50 p-2 bg-background/30">
-                        {towns.map((t) => (
-                          <button
-                            key={t}
-                            type="button"
-                            onClick={() => setTownVillage(t)}
-                            className={`text-left px-3 py-1.5 rounded-lg text-xs transition-all duration-150
-                              ${townVillage === t
-                                ? "bg-primary/10 text-foreground font-semibold border border-primary/30"
-                                : "hover:bg-muted/50 text-foreground/70 border border-transparent"
-                              }`}
-                          >
-                            {t}
-                          </button>
-                        ))}
-                      </div>
+                      {townVillage ? (
+                        <div className="flex items-center justify-between rounded-xl border border-primary/30 bg-primary/5 px-3 py-2">
+                          <span className="text-sm font-medium">{townVillage}</span>
+                          <Button type="button" variant="ghost" size="sm" className="h-6 text-xs text-muted-foreground" onClick={() => setTownVillage("")}>
+                            Change
+                          </Button>
+                        </div>
+                      ) : (
+                        <div className="grid grid-cols-2 gap-1.5 max-h-32 overflow-y-auto rounded-xl border border-border/50 p-2 bg-background/30">
+                          {towns.map((t) => (
+                            <button
+                              key={t}
+                              type="button"
+                              onClick={() => setTownVillage(t)}
+                              className="text-left px-3 py-1.5 rounded-lg text-xs transition-all duration-150 hover:bg-muted/50 text-foreground/70 border border-transparent"
+                            >
+                              {t}
+                            </button>
+                          ))}
+                        </div>
+                      )}
                     </div>
                   )}
                 </>
