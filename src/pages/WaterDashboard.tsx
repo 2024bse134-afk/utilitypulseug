@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import waterWorker from "@/assets/water-worker.jpg";
+import waterBg from "@/assets/water-bg.jpg";
 import { useAuth } from "@/contexts/AuthContext";
 import { supabase } from "@/integrations/supabase/client";
 import { Droplets, CreditCard, AlertTriangle, MapPin, BarChart3, ArrowLeft, LogOut, Gauge, ChevronRight, Settings } from "lucide-react";
@@ -35,7 +35,7 @@ export default function WaterDashboard() {
     <div className="min-h-screen relative overflow-hidden">
       {/* Background image - top section */}
       <div className="absolute inset-0">
-        <img src={waterWorker} alt="Water infrastructure worker" className="w-full h-full object-cover" />
+        <img src={waterBg} alt="Water infrastructure" className="w-full h-full object-cover" />
         <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-black/20 to-background/90" />
       </div>
 
