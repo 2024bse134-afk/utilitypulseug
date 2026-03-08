@@ -36,8 +36,9 @@ export default function UtilitySelection() {
                 <Shield className="w-4 h-4" />
               </Button>
             )}
-            <Button variant="ghost" size="icon" onClick={signOut} title="Sign out" className="rounded-xl">
+            <Button variant="outline" onClick={signOut} className="rounded-xl gap-2">
               <LogOut className="w-4 h-4" />
+              Log Out
             </Button>
           </div>
         </div>
