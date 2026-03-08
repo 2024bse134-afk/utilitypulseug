@@ -14,6 +14,7 @@ import ReportProblemPage from "./pages/ReportProblemPage";
 import OutagesPage from "./pages/OutagesPage";
 import ReliabilityPage from "./pages/ReliabilityPage";
 import AdminDashboard from "./pages/AdminDashboard";
+import ProfileSettingsPage from "./pages/ProfileSettingsPage";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
