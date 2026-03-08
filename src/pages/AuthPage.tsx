@@ -146,6 +146,7 @@ export default function AuthPage() {
               >
                 {loading ? "Please wait..." : isLogin ? "Sign In" : "Create Account"}
               </Button>
+            </form>
             <div className="relative my-4">
               <div className="absolute inset-0 flex items-center">
                 <div className="w-full border-t border-border" />
@@ -173,8 +174,7 @@ export default function AuthPage() {
               </svg>
               Google
             </Button>
-            </CardContent>
-          <div className="mt-4 text-center pb-6">
+            <div className="mt-4 text-center">
               <button
                 onClick={() => setIsLogin(!isLogin)}
                 className="text-sm text-muted-foreground hover:text-primary transition-colors"
@@ -184,7 +184,6 @@ export default function AuthPage() {
                   : "Already have an account? Sign in"}
               </button>
             </div>
-          </CardContent>
         </Card>
       </div>
     </div>
