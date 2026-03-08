@@ -17,6 +17,8 @@ export default function AdminDashboard() {
   const navigate = useNavigate();
   const { isAdmin, signOut } = useAuth();
   const [reports, setReports] = useState<Report[]>([]);
+  const [verifications, setVerifications] = useState<Verification[]>([]);
+  const [expandedReport, setExpandedReport] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
   const [stats, setStats] = useState({
     totalUsers: 0,
