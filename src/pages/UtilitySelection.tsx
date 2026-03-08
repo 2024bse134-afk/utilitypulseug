@@ -109,6 +109,40 @@ export default function UtilitySelection() {
             </div>
           </button>
         </div>
+
+        {/* How It Works */}
+        <div className="mt-10 mb-6">
+          <h3 className="text-lg font-heading font-semibold text-foreground mb-4">How It Works</h3>
+          <div className="grid gap-3">
+            <div className="flex items-start gap-3">
+              <div className="w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center shrink-0 mt-0.5">
+                <span className="text-sm font-bold text-primary">1</span>
+              </div>
+              <div>
+                <p className="text-sm font-medium text-foreground">Choose your utility</p>
+                <p className="text-xs text-muted-foreground">Select electricity or water to get started</p>
+              </div>
+            </div>
+            <div className="flex items-start gap-3">
+              <div className="w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center shrink-0 mt-0.5">
+                <span className="text-sm font-bold text-primary">2</span>
+              </div>
+              <div>
+                <p className="text-sm font-medium text-foreground">Pay bills or report issues</p>
+                <p className="text-xs text-muted-foreground">Make payments via mobile money or flag outages in your area</p>
+              </div>
+            </div>
+            <div className="flex items-start gap-3">
+              <div className="w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center shrink-0 mt-0.5">
+                <span className="text-sm font-bold text-primary">3</span>
+              </div>
+              <div>
+                <p className="text-sm font-medium text-foreground">Track & stay informed</p>
+                <p className="text-xs text-muted-foreground">Monitor service reliability and community reports near you</p>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   );
