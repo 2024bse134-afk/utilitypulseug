@@ -35,9 +35,9 @@ export default function WaterDashboard() {
   return (
     <div className="min-h-screen relative overflow-hidden">
       {/* Background image - top section */}
-      <div className="absolute inset-0 h-72">
-        <img src={waterWorker} alt="Water infrastructure worker" className="w-full h-72 object-cover" />
-        <div className="absolute inset-0 h-72 bg-gradient-to-b from-black/40 via-black/30 to-background" />
+      <div className="absolute inset-0">
+        <img src={waterWorker} alt="Water infrastructure worker" className="w-full h-full object-cover" />
+        <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-black/20 to-background/90" />
       </div>
 
       <div className="relative z-10 max-w-lg mx-auto">
