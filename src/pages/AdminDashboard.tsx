@@ -6,11 +6,12 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { ArrowLeft, Users, FileText, Zap, Droplets, AlertTriangle, Flame, Home } from "lucide-react";
+import { ArrowLeft, Users, FileText, Zap, Droplets, AlertTriangle, Flame, Home, ThumbsUp, ThumbsDown, ChevronDown, ChevronUp } from "lucide-react";
 import { toast } from "sonner";
 import type { Tables } from "@/integrations/supabase/types";
 
 type Report = Tables<"reports">;
+type Verification = Tables<"verifications"> & { profiles?: { full_name: string; district: string; town_village: string } | null };
 
 export default function AdminDashboard() {
   const navigate = useNavigate();
