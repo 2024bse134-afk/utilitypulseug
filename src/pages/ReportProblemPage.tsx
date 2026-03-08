@@ -37,10 +37,10 @@ export default function ReportProblemPage() {
   const [showDistrictDropdown, setShowDistrictDropdown] = useState(false);
 
   // Pre-fill from user profile
-  useState(() => {
-    if (profile?.district) setDistrict(profile.district);
-    if (profile?.town_village) setTownVillage(profile.town_village);
-  });
+  useEffect(() => {
+    if (profile?.district && !district) setDistrict(profile.district);
+    if (profile?.town_village && !townVillage) setTownVillage(profile.town_village);
+  }, [profile]);
 
   const isElectricity = utility === "electricity";
   const problems = isElectricity ? ELECTRICITY_PROBLEMS : WATER_PROBLEMS;
