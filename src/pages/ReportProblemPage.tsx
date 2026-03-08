@@ -10,6 +10,8 @@ import { ArrowLeft, AlertTriangle, CheckCircle2, MapPin, Zap, Droplets, FileWarn
 import { toast } from "sonner";
 import { Input } from "@/components/ui/input";
 import { getDistricts, getTownsForDistrict, searchDistricts } from "@/data/ugandaLocations";
+import reportElectricityBg from "@/assets/report-electricity-bg.jpg";
+import reportWaterBg from "@/assets/report-water-bg.jpg";
 
 const ELECTRICITY_PROBLEMS = [
   { value: "Power outage", icon: "⚡", desc: "Complete loss of electricity" },
