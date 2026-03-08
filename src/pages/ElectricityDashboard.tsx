@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import electricPoleWorker from "@/assets/electric-pole-worker.jpg";
 import { useAuth } from "@/contexts/AuthContext";
 import { supabase } from "@/integrations/supabase/client";
 import { Zap, CreditCard, AlertTriangle, MapPin, BarChart3, ArrowLeft, LogOut, Gauge } from "lucide-react";
