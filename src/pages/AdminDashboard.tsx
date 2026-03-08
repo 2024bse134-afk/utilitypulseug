@@ -264,8 +264,8 @@ export default function AdminDashboard() {
                         const denies = rv.filter(v => !v.confirmed).length;
                         const isExpanded = expandedReport === report.id;
                         return (
-                          <>
-                            <tr key={report.id} className="border-b last:border-0 hover:bg-muted/30 transition-colors cursor-pointer" onClick={() => setExpandedReport(isExpanded ? null : report.id)}>
+                          <React.Fragment key={report.id}>
+                            <tr className="border-b last:border-0 hover:bg-muted/30 transition-colors cursor-pointer" onClick={() => setExpandedReport(isExpanded ? null : report.id)}>
                               <td className="p-3 text-muted-foreground">
                                 {report.town_village}, {report.district}
                               </td>
