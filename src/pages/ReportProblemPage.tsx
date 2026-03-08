@@ -25,7 +25,7 @@ const WATER_PROBLEMS = [
 export default function ReportProblemPage() {
   const { utility } = useParams<{ utility: string }>();
   const navigate = useNavigate();
-  const { user } = useAuth();
+  const { user, profile } = useAuth();
   const [problemType, setProblemType] = useState("");
   const [district, setDistrict] = useState("");
   const [townVillage, setTownVillage] = useState("");
@@ -35,6 +35,12 @@ export default function ReportProblemPage() {
   const [townSearch, setTownSearch] = useState("");
   const [districtSearch, setDistrictSearch] = useState("");
   const [showDistrictDropdown, setShowDistrictDropdown] = useState(false);
+
+  // Pre-fill from user profile
+  useState(() => {
+    if (profile?.district) setDistrict(profile.district);
+    if (profile?.town_village) setTownVillage(profile.town_village);
+  });
 
   const isElectricity = utility === "electricity";
   const problems = isElectricity ? ELECTRICITY_PROBLEMS : WATER_PROBLEMS;
