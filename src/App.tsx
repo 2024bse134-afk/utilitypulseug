@@ -37,6 +37,7 @@ const App = () => (
             <Route path="/outages/:utility" element={<OutagesPage />} />
             <Route path="/reliability/:utility" element={<ReliabilityPage />} />
             <Route path="/admin" element={<AdminDashboard />} />
+            <Route path="/profile" element={<ProfileSettingsPage />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
         </AuthProvider>
