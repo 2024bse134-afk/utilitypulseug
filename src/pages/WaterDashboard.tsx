@@ -76,7 +76,7 @@ export default function WaterDashboard() {
         </div>
 
         {/* Main content area with rounded top */}
-        <div className="bg-background rounded-t-3xl min-h-[calc(100vh-13rem)] px-4 pt-6 pb-8 shadow-[0_-8px_30px_rgba(0,0,0,0.12)]">
+        <div className="bg-background/95 backdrop-blur-sm rounded-t-3xl min-h-[calc(100vh-13rem)] px-4 pt-6 pb-8 shadow-[0_-8px_30px_rgba(0,0,0,0.12)]">
           {/* Units Card */}
           <div className="rounded-2xl gradient-water p-5 mb-6 shadow-glow-water">
             <div className="flex items-center justify-between mb-3">
