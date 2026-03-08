@@ -128,7 +128,7 @@ export default function AdminDashboard() {
             </Button>
             <h1 className="text-2xl font-heading font-bold text-foreground">Admin Dashboard</h1>
           </div>
-          <Button variant="ghost" size="sm" onClick={signOut} className="rounded-xl">
+          <Button variant="default" size="sm" onClick={signOut} className="rounded-xl bg-primary text-primary-foreground hover:bg-primary/90">
             Sign out
           </Button>
         </div>
