@@ -143,7 +143,7 @@ export default function ReportProblemPage() {
         </div>
 
         {/* Problem Type Selection */}
-        <Card className="shadow-card-hover glass border-border/50 mb-4">
+        <Card className="shadow-card-hover bg-card/95 backdrop-blur-md border-border/50 mb-4">
           <CardHeader className="pb-3">
             <CardTitle className="text-base flex items-center gap-2">
               <AlertTriangle className={`w-4 h-4 ${isElectricity ? "text-electricity" : "text-water"}`} />
@@ -189,7 +189,7 @@ export default function ReportProblemPage() {
         </Card>
 
         {/* Location */}
-        <Card className="shadow-card-hover glass border-border/50 mb-4">
+        <Card className="shadow-card-hover bg-card/95 backdrop-blur-md border-border/50 mb-4">
           <CardHeader className="pb-3">
             <CardTitle className="text-base flex items-center gap-2">
               <MapPin className={`w-4 h-4 ${isElectricity ? "text-electricity" : "text-water"}`} />
