@@ -242,13 +242,53 @@ export default function AdminDashboard() {
             </Card>
           </div>
 
-          {/* Hotspots */}
-          <div>
+          {/* Confirmed Areas & Hotspots */}
+          <div className="space-y-6">
+            {/* Confirmed Outage Areas */}
+            <Card className="shadow-card glass border-status-confirmed/30">
+              <CardHeader>
+                <CardTitle className="text-lg flex items-center gap-2">
+                  <AlertTriangle className="w-5 h-5 text-status-confirmed" />
+                  Confirmed Outage Areas
+                </CardTitle>
+              </CardHeader>
+              <CardContent className="space-y-2">
+                {sortedHotspots.filter(([, data]) => data.confirmed > 0).length === 0 ? (
+                  <p className="text-muted-foreground text-sm">No confirmed outages.</p>
+                ) : (
+                  sortedHotspots
+                    .filter(([, data]) => data.confirmed > 0)
+                    .map(([area, data]) => (
+                      <div key={area} className="p-3 rounded-lg bg-status-confirmed/10 border border-status-confirmed/20">
+                        <div className="flex items-center justify-between">
+                          <span className="text-sm font-semibold">{area}</span>
+                          <Badge className="bg-status-confirmed/20 text-status-confirmed border-status-confirmed/30">
+                            {data.confirmed} confirmed
+                          </Badge>
+                        </div>
+                        <div className="flex items-center gap-3 mt-1.5">
+                          <span className="text-xs text-muted-foreground flex items-center gap-0.5">
+                            <Zap className="w-3 h-3 text-electricity" /> {data.electricity}
+                          </span>
+                          <span className="text-xs text-muted-foreground flex items-center gap-0.5">
+                            <Droplets className="w-3 h-3 text-water" /> {data.water}
+                          </span>
+                          {data.pending > 0 && (
+                            <span className="text-xs text-status-possible">{data.pending} pending</span>
+                          )}
+                        </div>
+                      </div>
+                    ))
+                )}
+              </CardContent>
+            </Card>
+
+            {/* All Area Hotspots */}
             <Card className="shadow-card glass border-border/50">
               <CardHeader>
                 <CardTitle className="text-lg flex items-center gap-2">
                   <Flame className="w-5 h-5 text-status-confirmed" />
-                  Area Hotspots
+                  All Area Hotspots
                 </CardTitle>
               </CardHeader>
               <CardContent className="space-y-2">
@@ -268,7 +308,11 @@ export default function AdminDashboard() {
                           </span>
                         </div>
                       </div>
-                      <Badge variant="secondary">{data.total} reports</Badge>
+                      <div className="flex items-center gap-1.5">
+                        {data.confirmed > 0 && <Badge className="bg-status-confirmed/20 text-status-confirmed text-xs border-status-confirmed/30">{data.confirmed}✓</Badge>}
+                        {data.pending > 0 && <Badge className="bg-status-possible/20 text-status-possible text-xs border-status-possible/30">{data.pending}?</Badge>}
+                        {data.resolved > 0 && <Badge className="bg-status-normal/20 text-status-normal text-xs border-status-normal/30">{data.resolved}✔</Badge>}
+                      </div>
                     </div>
                   ))
                 )}
