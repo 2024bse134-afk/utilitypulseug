@@ -3,20 +3,24 @@ import { useParams, useNavigate } from "react-router-dom";
 import { useAuth } from "@/contexts/AuthContext";
 import { supabase } from "@/integrations/supabase/client";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { ArrowLeft, AlertTriangle, CheckCircle2 } from "lucide-react";
+import { ArrowLeft, AlertTriangle, CheckCircle2, MapPin, Zap, Droplets, FileWarning, Search } from "lucide-react";
 import { toast } from "sonner";
+import { Input } from "@/components/ui/input";
+import { getDistricts, getTownsForDistrict } from "@/data/ugandaLocations";
 
-const ELECTRICITY_PROBLEMS = ["Power outage", "Low voltage", "Power fluctuation"];
-const WATER_PROBLEMS = ["Water shortage", "Pipe leak", "Low pressure"];
-
-const DISTRICTS = [
-  "Kampala", "Wakiso", "Mbarara", "Bushenyi", "Jinja", "Mbale", "Gulu",
-  "Lira", "Soroti", "Fort Portal", "Masaka", "Mukono", "Entebbe"
+const ELECTRICITY_PROBLEMS = [
+  { value: "Power outage", icon: "⚡", desc: "Complete loss of electricity" },
+  { value: "Low voltage", icon: "📉", desc: "Dim lights, appliances struggling" },
+  { value: "Power fluctuation", icon: "🔄", desc: "Intermittent on/off power" },
+];
+const WATER_PROBLEMS = [
+  { value: "Water shortage", icon: "🚫", desc: "No water flowing from taps" },
+  { value: "Pipe leak", icon: "💧", desc: "Visible water leak from pipes" },
+  { value: "Low pressure", icon: "📉", desc: "Very weak water flow" },
 ];
 
 export default function ReportProblemPage() {
@@ -29,9 +33,15 @@ export default function ReportProblemPage() {
   const [description, setDescription] = useState("");
   const [loading, setLoading] = useState(false);
   const [submitted, setSubmitted] = useState(false);
+  const [townSearch, setTownSearch] = useState("");
 
   const isElectricity = utility === "electricity";
   const problems = isElectricity ? ELECTRICITY_PROBLEMS : WATER_PROBLEMS;
+  const districts = getDistricts();
+  const towns = district ? getTownsForDistrict(district) : [];
+  const filteredTowns = townSearch
+    ? towns.filter(t => t.toLowerCase().includes(townSearch.toLowerCase()))
+    : towns;
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -58,18 +68,33 @@ export default function ReportProblemPage() {
   if (submitted) {
     return (
       <div className="min-h-screen p-4 flex items-center justify-center relative overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-br from-status-normal/5 to-background" />
-        <Card className="max-w-md w-full shadow-card-hover glass animate-slide-up relative z-10">
-          <CardContent className="pt-8 pb-8 text-center space-y-4">
-            <div className="w-16 h-16 mx-auto rounded-full bg-status-normal/10 flex items-center justify-center">
-              <CheckCircle2 className="w-8 h-8 text-status-normal" />
+        <div className="absolute inset-0 bg-gradient-to-br from-status-normal/5 via-background to-background" />
+        <Card className="max-w-md w-full shadow-card-hover glass animate-slide-up relative z-10 border-status-normal/20">
+          <CardContent className="pt-8 pb-8 text-center space-y-5">
+            <div className="w-20 h-20 mx-auto rounded-full bg-status-normal/10 flex items-center justify-center ring-4 ring-status-normal/20">
+              <CheckCircle2 className="w-10 h-10 text-status-normal" />
             </div>
-            <h2 className="text-xl font-heading font-bold">Report Submitted!</h2>
-            <p className="text-muted-foreground">
-              Your report has been submitted. We are asking other users in{" "}
-              <strong>{townVillage}</strong> to confirm this issue.
-            </p>
-            <Button onClick={() => navigate(`/${utility}`)} className="w-full mt-4">
+            <div>
+              <h2 className="text-2xl font-heading font-bold text-foreground">Report Submitted!</h2>
+              <p className="text-muted-foreground mt-2 leading-relaxed">
+                Your report has been submitted successfully. We are asking other users in{" "}
+                <span className="font-semibold text-foreground">{townVillage}</span>,{" "}
+                <span className="text-foreground">{district}</span> to confirm this issue.
+              </p>
+            </div>
+            <div className="bg-muted/50 rounded-xl p-4 text-left space-y-2">
+              <div className="flex items-center gap-2 text-sm">
+                <FileWarning className={`w-4 h-4 ${isElectricity ? "text-electricity" : "text-water"}`} />
+                <span className="text-muted-foreground">Problem:</span>
+                <span className="font-medium text-foreground">{problemType}</span>
+              </div>
+              <div className="flex items-center gap-2 text-sm">
+                <MapPin className={`w-4 h-4 ${isElectricity ? "text-electricity" : "text-water"}`} />
+                <span className="text-muted-foreground">Location:</span>
+                <span className="font-medium text-foreground">{townVillage}, {district}</span>
+              </div>
+            </div>
+            <Button onClick={() => navigate(`/${utility}`)} className="w-full h-12 text-base font-semibold rounded-xl">
               Back to Dashboard
             </Button>
           </CardContent>
@@ -80,71 +105,171 @@ export default function ReportProblemPage() {
 
   return (
     <div className="min-h-screen p-4 relative overflow-hidden">
-      <div className={`absolute inset-0 bg-gradient-to-br ${isElectricity ? "from-electricity/5" : "from-water/5"} to-background`} />
-      <div className="max-w-md mx-auto pt-6 relative z-10">
+      <div className={`absolute inset-0 bg-gradient-to-br ${isElectricity ? "from-electricity/5 via-electricity/2" : "from-water/5 via-water/2"} to-background`} />
+      <div className="max-w-lg mx-auto pt-6 relative z-10">
+        {/* Header */}
         <div className="flex items-center gap-3 mb-6">
-          <Button variant="ghost" size="icon" onClick={() => navigate(`/${utility}`)} className="rounded-xl">
+          <Button variant="ghost" size="icon" onClick={() => navigate(`/${utility}`)} className="rounded-xl hover:bg-muted/80">
             <ArrowLeft className="w-5 h-5" />
           </Button>
-          <div className="flex items-center gap-2">
-            <AlertTriangle className={`w-5 h-5 ${isElectricity ? "text-electricity" : "text-water"}`} />
-            <h1 className="text-xl font-heading font-bold">
-              Report {isElectricity ? "Electricity" : "Water"} Problem
-            </h1>
+          <div className="flex items-center gap-2.5">
+            <div className={`w-9 h-9 rounded-xl flex items-center justify-center ${isElectricity ? "gradient-electricity shadow-glow-electricity" : "gradient-water shadow-glow-water"}`}>
+              {isElectricity ? <Zap className="w-4 h-4 text-electricity-foreground" /> : <Droplets className="w-4 h-4 text-water-foreground" />}
+            </div>
+            <div>
+              <h1 className="text-xl font-heading font-bold leading-tight">
+                Report {isElectricity ? "Electricity" : "Water"} Problem
+              </h1>
+              <p className="text-xs text-muted-foreground">Help your community stay informed</p>
+            </div>
           </div>
         </div>
 
-        <Card className="shadow-card-hover glass border-border/50">
-          <CardHeader>
-            <CardTitle className="text-lg">Problem Details</CardTitle>
+        {/* Problem Type Selection */}
+        <Card className="shadow-card-hover glass border-border/50 mb-4">
+          <CardHeader className="pb-3">
+            <CardTitle className="text-base flex items-center gap-2">
+              <AlertTriangle className={`w-4 h-4 ${isElectricity ? "text-electricity" : "text-water"}`} />
+              What's the problem?
+            </CardTitle>
+            <CardDescription>Select the type of issue you're experiencing</CardDescription>
+          </CardHeader>
+          <CardContent>
+            <div className="grid gap-2">
+              {problems.map((p) => (
+                <button
+                  key={p.value}
+                  type="button"
+                  onClick={() => setProblemType(p.value)}
+                  className={`flex items-center gap-3 p-3.5 rounded-xl border-2 transition-all duration-200 text-left
+                    ${problemType === p.value
+                      ? isElectricity
+                        ? "border-electricity bg-electricity/5 shadow-md"
+                        : "border-water bg-water/5 shadow-md"
+                      : "border-border/50 hover:border-border hover:bg-muted/30"
+                    }`}
+                >
+                  <div className={`w-10 h-10 rounded-lg flex items-center justify-center text-lg shrink-0
+                    ${problemType === p.value
+                      ? isElectricity ? "bg-electricity/10" : "bg-water/10"
+                      : "bg-muted/50"
+                    }`}>
+                    {p.icon}
+                  </div>
+                  <div>
+                    <p className={`font-semibold text-sm ${problemType === p.value ? "text-foreground" : "text-foreground/80"}`}>
+                      {p.value}
+                    </p>
+                    <p className="text-xs text-muted-foreground">{p.desc}</p>
+                  </div>
+                  {problemType === p.value && (
+                    <CheckCircle2 className={`w-5 h-5 ml-auto shrink-0 ${isElectricity ? "text-electricity" : "text-water"}`} />
+                  )}
+                </button>
+              ))}
+            </div>
+          </CardContent>
+        </Card>
+
+        {/* Location */}
+        <Card className="shadow-card-hover glass border-border/50 mb-4">
+          <CardHeader className="pb-3">
+            <CardTitle className="text-base flex items-center gap-2">
+              <MapPin className={`w-4 h-4 ${isElectricity ? "text-electricity" : "text-water"}`} />
+              Where is the problem?
+            </CardTitle>
+            <CardDescription>Select your district and town/village in Uganda</CardDescription>
           </CardHeader>
           <CardContent>
             <form onSubmit={handleSubmit} className="space-y-4">
               <div className="space-y-2">
-                <Label>Problem Type</Label>
-                <Select value={problemType} onValueChange={setProblemType} required>
-                  <SelectTrigger className="rounded-lg">
-                    <SelectValue placeholder="Select problem type" />
+                <Label className="text-sm font-medium">District</Label>
+                <Select
+                  value={district}
+                  onValueChange={(v) => {
+                    setDistrict(v);
+                    setTownVillage("");
+                    setTownSearch("");
+                  }}
+                >
+                  <SelectTrigger className="rounded-xl h-11 bg-background/50">
+                    <SelectValue placeholder="🇺🇬 Select your district" />
                   </SelectTrigger>
-                  <SelectContent>
-                    {problems.map((p) => (
-                      <SelectItem key={p} value={p}>{p}</SelectItem>
+                  <SelectContent className="max-h-64">
+                    {districts.map((d) => (
+                      <SelectItem key={d} value={d}>
+                        {d}
+                      </SelectItem>
                     ))}
                   </SelectContent>
                 </Select>
               </div>
+
               <div className="space-y-2">
-                <Label>District</Label>
-                <Select value={district} onValueChange={setDistrict} required>
-                  <SelectTrigger className="rounded-lg">
-                    <SelectValue placeholder="Select district" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    {DISTRICTS.map((d) => (
-                      <SelectItem key={d} value={d}>{d}</SelectItem>
-                    ))}
-                  </SelectContent>
-                </Select>
+                <Label className="text-sm font-medium">Town / Village</Label>
+                {district ? (
+                  <>
+                    <div className="relative">
+                      <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
+                      <Input
+                        placeholder={`Search towns in ${district}...`}
+                        value={townSearch}
+                        onChange={(e) => setTownSearch(e.target.value)}
+                        className="pl-9 rounded-xl h-10 bg-background/50 mb-2"
+                      />
+                    </div>
+                    <div className="grid grid-cols-2 gap-1.5 max-h-48 overflow-y-auto rounded-xl border border-border/50 p-2 bg-background/30">
+                      {filteredTowns.length > 0 ? (
+                        filteredTowns.map((t) => (
+                          <button
+                            key={t}
+                            type="button"
+                            onClick={() => setTownVillage(t)}
+                            className={`text-left px-3 py-2 rounded-lg text-sm transition-all duration-150
+                              ${townVillage === t
+                                ? isElectricity
+                                  ? "bg-electricity/10 text-foreground font-semibold border border-electricity/30"
+                                  : "bg-water/10 text-foreground font-semibold border border-water/30"
+                                : "hover:bg-muted/50 text-foreground/70 border border-transparent"
+                              }`}
+                          >
+                            {t}
+                          </button>
+                        ))
+                      ) : (
+                        <p className="col-span-2 text-center py-4 text-sm text-muted-foreground">
+                          No towns found. Try a different search.
+                        </p>
+                      )}
+                    </div>
+                  </>
+                ) : (
+                  <div className="flex items-center justify-center py-6 rounded-xl border border-dashed border-border/50 bg-muted/20">
+                    <p className="text-sm text-muted-foreground">Select a district first to see towns</p>
+                  </div>
+                )}
               </div>
+
               <div className="space-y-2">
-                <Label>Town / Village</Label>
-                <Input
-                  value={townVillage}
-                  onChange={(e) => setTownVillage(e.target.value)}
-                  placeholder="Enter town or village name"
-                  required
-                />
-              </div>
-              <div className="space-y-2">
-                <Label>Description (optional)</Label>
+                <Label className="text-sm font-medium">Description <span className="text-muted-foreground font-normal">(optional)</span></Label>
                 <Textarea
                   value={description}
                   onChange={(e) => setDescription(e.target.value)}
-                  placeholder="Any additional details..."
+                  placeholder="Any additional details about the problem..."
                   rows={3}
+                  className="rounded-xl bg-background/50 resize-none"
                 />
               </div>
-              <Button type="submit" className="w-full h-11 text-base font-semibold" disabled={loading || !problemType || !district || !townVillage}>
+
+              <Button
+                type="submit"
+                className={`w-full h-12 text-base font-bold rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 ${
+                  isElectricity
+                    ? "bg-gradient-to-r from-electricity to-amber-500 hover:from-amber-500 hover:to-electricity text-black"
+                    : "bg-gradient-to-r from-water to-cyan-400 hover:from-cyan-400 hover:to-water text-white"
+                }`}
+                disabled={loading || !problemType || !district || !townVillage}
+              >
                 {loading ? "Submitting..." : "Submit Report"}
               </Button>
             </form>
