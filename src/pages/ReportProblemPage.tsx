@@ -126,7 +126,7 @@ export default function ReportProblemPage() {
       <div className="relative z-10 max-w-lg mx-auto p-4 pt-6">
         {/* Header */}
         <div className="flex items-center gap-3 mb-6">
-          <Button variant="ghost" size="icon" onClick={() => navigate(`/${utility}`)} className="rounded-xl hover:bg-muted/80">
+          <Button variant="ghost" size="icon" onClick={() => navigate(`/${utility}`)} className="rounded-xl bg-white/20 backdrop-blur-md text-white hover:bg-white/30 hover:text-white">
             <ArrowLeft className="w-5 h-5" />
           </Button>
           <div className="flex items-center gap-2.5">
@@ -134,10 +134,10 @@ export default function ReportProblemPage() {
               {isElectricity ? <Zap className="w-4 h-4 text-electricity-foreground" /> : <Droplets className="w-4 h-4 text-water-foreground" />}
             </div>
             <div>
-              <h1 className="text-xl font-heading font-bold leading-tight">
+              <h1 className="text-xl font-heading font-bold leading-tight text-white drop-shadow-lg">
                 Report {isElectricity ? "Electricity" : "Water"} Problem
               </h1>
-              <p className="text-xs text-muted-foreground">Help your community stay informed</p>
+              <p className="text-xs text-white/80 drop-shadow">Help your community stay informed</p>
             </div>
           </div>
         </div>
