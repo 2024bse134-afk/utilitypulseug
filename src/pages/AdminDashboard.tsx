@@ -9,6 +9,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { ArrowLeft, Users, FileText, Zap, Droplets, AlertTriangle, Flame, Home, ThumbsUp, ThumbsDown, ChevronDown, ChevronUp } from "lucide-react";
 import { toast } from "sonner";
 import type { Tables } from "@/integrations/supabase/types";
+import adminBg from "@/assets/admin-bg.jpg";
 
 type Report = Tables<"reports">;
 type Verification = Tables<"verifications"> & { user_name?: string; user_location?: string };
@@ -117,9 +118,14 @@ export default function AdminDashboard() {
   }
 
   return (
-    <div className="min-h-screen p-4 relative overflow-hidden">
-      <div className="absolute inset-0 bg-gradient-to-br from-primary/3 via-background to-accent/5" />
-      <div className="max-w-5xl mx-auto pt-6 relative z-10">
+    <div className="min-h-screen relative overflow-hidden">
+      {/* Background image */}
+      <div className="fixed inset-0 z-0">
+        <img src={adminBg} alt="" className="w-full h-full object-cover" style={{ transform: 'rotate(-3deg) scale(1.1)' }} />
+        <div className="absolute inset-0 bg-background/90 backdrop-blur-sm" />
+      </div>
+      <div className="relative z-10 p-4">
+      <div className="max-w-5xl mx-auto pt-6">
         <div className="flex items-center justify-between mb-6">
           <div className="flex items-center gap-3">
             <Button variant="ghost" size="icon" onClick={() => navigate("/")} className="rounded-xl">
@@ -399,6 +405,7 @@ export default function AdminDashboard() {
             </Card>
           </div>
         </div>
+      </div>
       </div>
     </div>
   );
