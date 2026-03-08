@@ -1,4 +1,5 @@
 import { useState } from "react";
+import electricPoleWorker from "@/assets/electric-pole-worker.jpg";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "@/contexts/AuthContext";
 import { Button } from "@/components/ui/button";
@@ -66,8 +67,11 @@ export default function AuthPage() {
 
   return (
     <div className="min-h-screen flex items-center justify-center p-4 relative overflow-hidden">
-      {/* Background gradient */}
-      <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-background to-water/5" />
+      {/* Background image */}
+      <div className="absolute inset-0">
+        <img src={electricPoleWorker} alt="Utility workers on electric pole" className="w-full h-full object-cover" />
+        <div className="absolute inset-0 bg-background/80 backdrop-blur-sm" />
+      </div>
       <div className="absolute top-0 right-0 w-96 h-96 bg-electricity/10 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2" />
       <div className="absolute bottom-0 left-0 w-96 h-96 bg-water/10 rounded-full blur-3xl translate-y-1/2 -translate-x-1/2" />
 
