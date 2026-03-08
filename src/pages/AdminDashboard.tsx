@@ -77,15 +77,16 @@ export default function AdminDashboard() {
     }
   };
 
-  // Area hotspots
-  const hotspots = reports.reduce<Record<string, { total: number; electricity: number; water: number }>>((acc, r) => {
+  // Area hotspots with status breakdown
+  const hotspots = reports.reduce<Record<string, { total: number; electricity: number; water: number; confirmed: number; pending: number; investigating: number; resolved: number }>>((acc, r) => {
     const key = `${r.town_village}, ${r.district}`;
-    if (!acc[key]) acc[key] = { total: 0, electricity: 0, water: 0 };
+    if (!acc[key]) acc[key] = { total: 0, electricity: 0, water: 0, confirmed: 0, pending: 0, investigating: 0, resolved: 0 };
     acc[key].total += 1;
     acc[key][r.utility as "electricity" | "water"] += 1;
+    acc[key][r.status as "confirmed" | "pending" | "investigating" | "resolved"] = (acc[key][r.status as "confirmed" | "pending" | "investigating" | "resolved"] || 0) + 1;
     return acc;
   }, {});
-  const sortedHotspots = Object.entries(hotspots).sort((a, b) => b[1].total - a[1].total).slice(0, 10);
+  const sortedHotspots = Object.entries(hotspots).sort((a, b) => b[1].confirmed - a[1].confirmed || b[1].total - a[1].total).slice(0, 10);
 
   const statusColors: Record<string, string> = {
     pending: "bg-status-possible/10 text-status-possible",
