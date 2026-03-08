@@ -70,10 +70,8 @@ export default function AuthPage() {
       {/* Background image */}
       <div className="absolute inset-0">
         <img src={electricPoleWorker} alt="Utility workers on electric pole" className="w-full h-full object-cover" />
-        <div className="absolute inset-0 bg-background/80 backdrop-blur-sm" />
+        <div className="absolute inset-0 bg-background/40" />
       </div>
-      <div className="absolute top-0 right-0 w-96 h-96 bg-electricity/10 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2" />
-      <div className="absolute bottom-0 left-0 w-96 h-96 bg-water/10 rounded-full blur-3xl translate-y-1/2 -translate-x-1/2" />
 
       <div className="w-full max-w-md animate-slide-up relative z-10">
         {/* Logo */}
