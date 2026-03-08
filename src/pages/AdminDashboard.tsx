@@ -50,15 +50,23 @@ export default function AdminDashboard() {
   }, [isAdmin]);
 
   const fetchData = async () => {
-    const [reportsRes, profilesRes, verificationsRes] = await Promise.all([
+    const [reportsRes, profilesRes, verificationsRes, allProfilesRes] = await Promise.all([
       supabase.from("reports").select("*").order("created_at", { ascending: false }),
       supabase.from("profiles").select("id", { count: "exact" }),
-      supabase.from("verifications").select("*, profiles!verifications_user_id_fkey(full_name, district, town_village)").order("created_at", { ascending: false }),
+      supabase.from("verifications").select("*").order("created_at", { ascending: false }),
+      supabase.from("profiles").select("user_id, full_name, district, town_village"),
     ]);
 
     const allReports = reportsRes.data || [];
+    const profileMap = new Map((allProfilesRes.data || []).map(p => [p.user_id, p]));
+    const enrichedVerifications: Verification[] = (verificationsRes.data || []).map(v => ({
+      ...v,
+      user_name: profileMap.get(v.user_id)?.full_name || "Unknown",
+      user_location: profileMap.get(v.user_id) ? `${profileMap.get(v.user_id)!.town_village}, ${profileMap.get(v.user_id)!.district}` : "",
+    }));
+
     setReports(allReports);
-    setVerifications((verificationsRes.data as Verification[]) || []);
+    setVerifications(enrichedVerifications);
     setStats({
       totalUsers: profilesRes.count || 0,
       totalReports: allReports.length,
