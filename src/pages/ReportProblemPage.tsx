@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useMemo } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { useAuth } from "@/contexts/AuthContext";
 import { supabase } from "@/integrations/supabase/client";
@@ -6,11 +6,10 @@ import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { ArrowLeft, AlertTriangle, CheckCircle2, MapPin, Zap, Droplets, FileWarning, Search } from "lucide-react";
+import { ArrowLeft, AlertTriangle, CheckCircle2, MapPin, Zap, Droplets, FileWarning, Search, ChevronDown, X } from "lucide-react";
 import { toast } from "sonner";
 import { Input } from "@/components/ui/input";
-import { getDistricts, getTownsForDistrict } from "@/data/ugandaLocations";
+import { getDistricts, getTownsForDistrict, searchDistricts } from "@/data/ugandaLocations";
 
 const ELECTRICITY_PROBLEMS = [
   { value: "Power outage", icon: "⚡", desc: "Complete loss of electricity" },
