@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import waterWorker from "@/assets/water-worker.jpg";
+import waterBg from "@/assets/water-bg.jpg";
 import { useAuth } from "@/contexts/AuthContext";
 import { supabase } from "@/integrations/supabase/client";
 import { Droplets, CreditCard, AlertTriangle, MapPin, BarChart3, ArrowLeft, LogOut, Gauge, ChevronRight, Settings } from "lucide-react";
