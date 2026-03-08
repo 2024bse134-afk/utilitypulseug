@@ -122,7 +122,7 @@ export default function AdminDashboard() {
       {/* Background image */}
       <div className="fixed inset-0 z-0">
         <img src={adminBg} alt="" className="w-full h-full object-cover" style={{ transform: 'rotate(-3deg) scale(1.1)' }} />
-        <div className="absolute inset-0 bg-background/90 backdrop-blur-sm" />
+        <div className="absolute inset-0 bg-background/40" />
       </div>
       <div className="relative z-10 p-4">
       <div className="max-w-5xl mx-auto pt-6">
