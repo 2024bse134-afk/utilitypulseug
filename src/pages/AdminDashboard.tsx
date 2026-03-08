@@ -147,7 +147,7 @@ export default function AdminDashboard() {
             { icon: Droplets, label: "Water", value: stats.waterReports, bg: "bg-water-light", color: "text-water" },
             { icon: AlertTriangle, label: "Confirmed", value: stats.confirmedOutages, bg: "bg-status-confirmed/10", color: "text-status-confirmed" },
           ].map((stat) => (
-            <Card key={stat.label} className="shadow-card glass border-border/50">
+            <Card key={stat.label} className="shadow-card bg-card/95 backdrop-blur-md border-border/50">
               <CardContent className="p-4 text-center">
                 <div className={`w-10 h-10 mx-auto rounded-xl ${stat.bg} flex items-center justify-center mb-2`}>
                   <stat.icon className={`w-5 h-5 ${stat.color}`} />
