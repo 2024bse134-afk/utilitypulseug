@@ -9,6 +9,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { ArrowLeft, Users, FileText, Zap, Droplets, AlertTriangle, Flame, Home, ThumbsUp, ThumbsDown, ChevronDown, ChevronUp } from "lucide-react";
 import { toast } from "sonner";
 import type { Tables } from "@/integrations/supabase/types";
+import adminBg from "@/assets/admin-bg.jpg";
 
 type Report = Tables<"reports">;
 type Verification = Tables<"verifications"> & { user_name?: string; user_location?: string };
