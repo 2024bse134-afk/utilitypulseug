@@ -72,7 +72,13 @@ export default function AuthPage() {
       if (error) {
         toast.error(error.message);
       } else {
-        toast.success("Account created! Please check your email to verify.");
+        toast.success("Account created! Please check your email to verify, then sign in.");
+        setIsLogin(true);
+        setEmail("");
+        setPassword("");
+        setFullName("");
+        setDistrict("");
+        setTownVillage("");
       }
     }
     setLoading(false);
