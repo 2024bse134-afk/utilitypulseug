@@ -14,6 +14,7 @@ import ReportProblemPage from "./pages/ReportProblemPage";
 import OutagesPage from "./pages/OutagesPage";
 import ReliabilityPage from "./pages/ReliabilityPage";
 import AdminDashboard from "./pages/AdminDashboard";
+import ProfileSettingsPage from "./pages/ProfileSettingsPage";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -36,6 +37,7 @@ const App = () => (
             <Route path="/outages/:utility" element={<OutagesPage />} />
             <Route path="/reliability/:utility" element={<ReliabilityPage />} />
             <Route path="/admin" element={<AdminDashboard />} />
+            <Route path="/profile" element={<ProfileSettingsPage />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
         </AuthProvider>
