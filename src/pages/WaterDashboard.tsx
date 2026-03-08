@@ -67,11 +67,21 @@ export default function WaterDashboard() {
         </div>
 
         {/* Greeting */}
-        <div className="px-5 pt-2 pb-6">
-          <p className="text-white/80 text-sm drop-shadow">Welcome back,</p>
-          <p className="text-white text-xl font-heading font-bold drop-shadow-lg">
-            {profile?.full_name || "User"}
-          </p>
+        <div className="px-5 pt-2 pb-6 flex items-end justify-between">
+          <div>
+            <p className="text-white/80 text-sm drop-shadow">Welcome back,</p>
+            <p className="text-white text-xl font-heading font-bold drop-shadow-lg">
+              {profile?.full_name || "User"}
+            </p>
+          </div>
+          <Button
+            variant="ghost"
+            size="icon"
+            onClick={() => navigate("/profile")}
+            className="rounded-full bg-white/20 backdrop-blur-md text-white hover:bg-white/30 hover:text-white h-9 w-9"
+          >
+            <Settings className="w-4 h-4" />
+          </Button>
         </div>
 
         {/* Main content area with rounded top */}
