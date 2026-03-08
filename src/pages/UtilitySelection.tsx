@@ -112,35 +112,31 @@ export default function UtilitySelection() {
 
         {/* How It Works */}
         <div className="mt-10 mb-6">
-          <h3 className="text-lg font-heading font-semibold text-foreground mb-4">How It Works</h3>
+          <div className="flex items-center gap-3 mb-5">
+            <div className="h-px flex-1 bg-gradient-to-r from-transparent via-border to-transparent" />
+            <h3 className="text-sm font-heading font-semibold text-muted-foreground uppercase tracking-widest">How It Works</h3>
+            <div className="h-px flex-1 bg-gradient-to-r from-transparent via-border to-transparent" />
+          </div>
           <div className="grid gap-3">
-            <div className="flex items-start gap-3">
-              <div className="w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center shrink-0 mt-0.5">
-                <span className="text-sm font-bold text-primary">1</span>
+            {[
+              { step: "1", icon: "🎯", title: "Choose your utility", desc: "Select electricity or water to get started" },
+              { step: "2", icon: "💳", title: "Pay bills or report issues", desc: "Make payments via mobile money or flag outages in your area" },
+              { step: "3", icon: "📊", title: "Track & stay informed", desc: "Monitor service reliability and community reports near you" },
+            ].map((item) => (
+              <div
+                key={item.step}
+                className="group flex items-center gap-4 rounded-xl bg-card/60 backdrop-blur-sm border border-border/40 p-4 transition-all duration-200 hover:bg-card/80 hover:border-border/60 hover:shadow-sm"
+              >
+                <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-primary/20 to-primary/5 flex items-center justify-center shrink-0 text-lg">
+                  {item.icon}
+                </div>
+                <div className="flex-1 min-w-0">
+                  <p className="text-sm font-semibold text-foreground">{item.title}</p>
+                  <p className="text-xs text-muted-foreground mt-0.5">{item.desc}</p>
+                </div>
+                <span className="text-xs font-bold text-muted-foreground/40 font-heading">0{item.step}</span>
               </div>
-              <div>
-                <p className="text-sm font-medium text-foreground">Choose your utility</p>
-                <p className="text-xs text-muted-foreground">Select electricity or water to get started</p>
-              </div>
-            </div>
-            <div className="flex items-start gap-3">
-              <div className="w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center shrink-0 mt-0.5">
-                <span className="text-sm font-bold text-primary">2</span>
-              </div>
-              <div>
-                <p className="text-sm font-medium text-foreground">Pay bills or report issues</p>
-                <p className="text-xs text-muted-foreground">Make payments via mobile money or flag outages in your area</p>
-              </div>
-            </div>
-            <div className="flex items-start gap-3">
-              <div className="w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center shrink-0 mt-0.5">
-                <span className="text-sm font-bold text-primary">3</span>
-              </div>
-              <div>
-                <p className="text-sm font-medium text-foreground">Track & stay informed</p>
-                <p className="text-xs text-muted-foreground">Monitor service reliability and community reports near you</p>
-              </div>
-            </div>
+            ))}
           </div>
         </div>
       </div>
