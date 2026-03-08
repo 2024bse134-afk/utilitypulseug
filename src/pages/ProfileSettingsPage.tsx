@@ -45,6 +45,7 @@ export default function ProfileSettingsPage() {
     if (error) {
       toast.error("Failed to update profile");
     } else {
+      await refreshProfile();
       toast.success("Profile updated successfully");
     }
   };
