@@ -8,6 +8,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { toast } from "sonner";
 import { Zap, Droplets, Eye, EyeOff, Mail, Lock, User } from "lucide-react";
 import { lovable } from "@/integrations/lovable/index";
+import { supabase } from "@/integrations/supabase/client";
 
 export default function AuthPage() {
   const [isLogin, setIsLogin] = useState(true);
@@ -18,6 +19,23 @@ export default function AuthPage() {
   const [loading, setLoading] = useState(false);
   const { signIn, signUp } = useAuth();
   const navigate = useNavigate();
+
+  const handleForgotPassword = async () => {
+    if (!email.trim()) {
+      toast.error("Please enter your email address first");
+      return;
+    }
+    setLoading(true);
+    const { error } = await supabase.auth.resetPasswordForEmail(email, {
+      redirectTo: `${window.location.origin}/reset-password`,
+    });
+    setLoading(false);
+    if (error) {
+      toast.error(error.message);
+    } else {
+      toast.success("Password reset link sent! Check your email.");
+    }
+  };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -117,7 +135,18 @@ export default function AuthPage() {
                 </div>
               </div>
               <div className="space-y-2">
-                <Label htmlFor="password">Password</Label>
+                <div className="flex items-center justify-between">
+                  <Label htmlFor="password">Password</Label>
+                  {isLogin && (
+                    <button
+                      type="button"
+                      onClick={handleForgotPassword}
+                      className="text-xs text-primary hover:text-primary/80 transition-colors"
+                    >
+                      Forgot password?
+                    </button>
+                  )}
+                </div>
                 <div className="relative">
                   <Lock className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
                   <Input
