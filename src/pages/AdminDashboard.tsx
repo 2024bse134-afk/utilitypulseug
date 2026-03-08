@@ -6,16 +6,19 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { ArrowLeft, Users, FileText, Zap, Droplets, AlertTriangle, Flame, Home } from "lucide-react";
+import { ArrowLeft, Users, FileText, Zap, Droplets, AlertTriangle, Flame, Home, ThumbsUp, ThumbsDown, ChevronDown, ChevronUp } from "lucide-react";
 import { toast } from "sonner";
 import type { Tables } from "@/integrations/supabase/types";
 
 type Report = Tables<"reports">;
+type Verification = Tables<"verifications"> & { user_name?: string; user_location?: string };
 
 export default function AdminDashboard() {
   const navigate = useNavigate();
   const { isAdmin, signOut } = useAuth();
   const [reports, setReports] = useState<Report[]>([]);
+  const [verifications, setVerifications] = useState<Verification[]>([]);
+  const [expandedReport, setExpandedReport] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
   const [stats, setStats] = useState({
     totalUsers: 0,
@@ -47,13 +50,23 @@ export default function AdminDashboard() {
   }, [isAdmin]);
 
   const fetchData = async () => {
-    const [reportsRes, profilesRes] = await Promise.all([
+    const [reportsRes, profilesRes, verificationsRes, allProfilesRes] = await Promise.all([
       supabase.from("reports").select("*").order("created_at", { ascending: false }),
       supabase.from("profiles").select("id", { count: "exact" }),
+      supabase.from("verifications").select("*").order("created_at", { ascending: false }),
+      supabase.from("profiles").select("user_id, full_name, district, town_village"),
     ]);
 
     const allReports = reportsRes.data || [];
+    const profileMap = new Map((allProfilesRes.data || []).map(p => [p.user_id, p]));
+    const enrichedVerifications: Verification[] = (verificationsRes.data || []).map(v => ({
+      ...v,
+      user_name: profileMap.get(v.user_id)?.full_name || "Unknown",
+      user_location: profileMap.get(v.user_id) ? `${profileMap.get(v.user_id)!.town_village}, ${profileMap.get(v.user_id)!.district}` : "",
+    }));
+
     setReports(allReports);
+    setVerifications(enrichedVerifications);
     setStats({
       totalUsers: profilesRes.count || 0,
       totalReports: allReports.length,
@@ -158,31 +171,64 @@ export default function AdminDashboard() {
                       <tr className="border-b bg-muted/50">
                         <th className="p-3 text-left font-medium text-muted-foreground">Location</th>
                         <th className="p-3 text-left font-medium text-muted-foreground">Problem</th>
+                        <th className="p-3 text-left font-medium text-muted-foreground">Feedback</th>
                         <th className="p-3 text-left font-medium text-muted-foreground">Status</th>
                       </tr>
                     </thead>
                     <tbody>
-                      {reports.filter(r => r.utility === "electricity").slice(0, 20).map((report) => (
-                        <tr key={report.id} className="border-b last:border-0 hover:bg-muted/30 transition-colors">
-                          <td className="p-3 text-muted-foreground">
-                            {report.town_village}, {report.district}
-                          </td>
-                          <td className="p-3">{report.problem_type}</td>
-                          <td className="p-3">
-                            <Select value={report.status} onValueChange={(val) => updateStatus(report.id, val)}>
-                              <SelectTrigger className="w-32 h-8 rounded-lg">
-                                <SelectValue />
-                              </SelectTrigger>
-                              <SelectContent>
-                                <SelectItem value="pending">Pending</SelectItem>
-                                <SelectItem value="investigating">Investigating</SelectItem>
-                                <SelectItem value="confirmed">Confirmed</SelectItem>
-                                <SelectItem value="resolved">Resolved</SelectItem>
-                              </SelectContent>
-                            </Select>
-                          </td>
-                        </tr>
-                      ))}
+                      {reports.filter(r => r.utility === "electricity").slice(0, 20).map((report) => {
+                        const rv = verifications.filter(v => v.report_id === report.id);
+                        const confirms = rv.filter(v => v.confirmed).length;
+                        const denies = rv.filter(v => !v.confirmed).length;
+                        const isExpanded = expandedReport === report.id;
+                        return (
+                          <>
+                            <tr key={report.id} className="border-b last:border-0 hover:bg-muted/30 transition-colors cursor-pointer" onClick={() => setExpandedReport(isExpanded ? null : report.id)}>
+                              <td className="p-3 text-muted-foreground">
+                                {report.town_village}, {report.district}
+                              </td>
+                              <td className="p-3">{report.problem_type}</td>
+                              <td className="p-3">
+                                <div className="flex items-center gap-2">
+                                  <span className="flex items-center gap-0.5 text-status-normal text-xs"><ThumbsUp className="w-3 h-3" /> {confirms}</span>
+                                  <span className="flex items-center gap-0.5 text-status-confirmed text-xs"><ThumbsDown className="w-3 h-3" /> {denies}</span>
+                                  {rv.length > 0 && (isExpanded ? <ChevronUp className="w-3 h-3 text-muted-foreground" /> : <ChevronDown className="w-3 h-3 text-muted-foreground" />)}
+                                </div>
+                              </td>
+                              <td className="p-3" onClick={e => e.stopPropagation()}>
+                                <Select value={report.status} onValueChange={(val) => updateStatus(report.id, val)}>
+                                  <SelectTrigger className="w-32 h-8 rounded-lg">
+                                    <SelectValue />
+                                  </SelectTrigger>
+                                  <SelectContent>
+                                    <SelectItem value="pending">Pending</SelectItem>
+                                    <SelectItem value="investigating">Investigating</SelectItem>
+                                    <SelectItem value="confirmed">Confirmed</SelectItem>
+                                    <SelectItem value="resolved">Resolved</SelectItem>
+                                  </SelectContent>
+                                </Select>
+                              </td>
+                            </tr>
+                            {isExpanded && rv.length > 0 && (
+                              <tr key={`${report.id}-feedback`} className="bg-muted/20">
+                                <td colSpan={4} className="p-3">
+                                  <p className="text-xs font-medium text-muted-foreground mb-2">User Feedback ({rv.length})</p>
+                                  <div className="space-y-1.5">
+                                    {rv.map(v => (
+                                      <div key={v.id} className="flex items-center gap-2 text-xs">
+                                        {v.confirmed ? <ThumbsUp className="w-3 h-3 text-status-normal" /> : <ThumbsDown className="w-3 h-3 text-status-confirmed" />}
+                                        <span className="font-medium">{v.user_name}</span>
+                                        <span className="text-muted-foreground">from {v.user_location}</span>
+                                        <span className="text-muted-foreground ml-auto">{new Date(v.created_at).toLocaleDateString()}</span>
+                                      </div>
+                                    ))}
+                                  </div>
+                                </td>
+                              </tr>
+                            )}
+                          </>
+                        );
+                      })}
                     </tbody>
                   </table>
                   {reports.filter(r => r.utility === "electricity").length === 0 && (
@@ -207,31 +253,64 @@ export default function AdminDashboard() {
                       <tr className="border-b bg-muted/50">
                         <th className="p-3 text-left font-medium text-muted-foreground">Location</th>
                         <th className="p-3 text-left font-medium text-muted-foreground">Problem</th>
+                        <th className="p-3 text-left font-medium text-muted-foreground">Feedback</th>
                         <th className="p-3 text-left font-medium text-muted-foreground">Status</th>
                       </tr>
                     </thead>
                     <tbody>
-                      {reports.filter(r => r.utility === "water").slice(0, 20).map((report) => (
-                        <tr key={report.id} className="border-b last:border-0 hover:bg-muted/30 transition-colors">
-                          <td className="p-3 text-muted-foreground">
-                            {report.town_village}, {report.district}
-                          </td>
-                          <td className="p-3">{report.problem_type}</td>
-                          <td className="p-3">
-                            <Select value={report.status} onValueChange={(val) => updateStatus(report.id, val)}>
-                              <SelectTrigger className="w-32 h-8 rounded-lg">
-                                <SelectValue />
-                              </SelectTrigger>
-                              <SelectContent>
-                                <SelectItem value="pending">Pending</SelectItem>
-                                <SelectItem value="investigating">Investigating</SelectItem>
-                                <SelectItem value="confirmed">Confirmed</SelectItem>
-                                <SelectItem value="resolved">Resolved</SelectItem>
-                              </SelectContent>
-                            </Select>
-                          </td>
-                        </tr>
-                      ))}
+                      {reports.filter(r => r.utility === "water").slice(0, 20).map((report) => {
+                        const rv = verifications.filter(v => v.report_id === report.id);
+                        const confirms = rv.filter(v => v.confirmed).length;
+                        const denies = rv.filter(v => !v.confirmed).length;
+                        const isExpanded = expandedReport === report.id;
+                        return (
+                          <>
+                            <tr key={report.id} className="border-b last:border-0 hover:bg-muted/30 transition-colors cursor-pointer" onClick={() => setExpandedReport(isExpanded ? null : report.id)}>
+                              <td className="p-3 text-muted-foreground">
+                                {report.town_village}, {report.district}
+                              </td>
+                              <td className="p-3">{report.problem_type}</td>
+                              <td className="p-3">
+                                <div className="flex items-center gap-2">
+                                  <span className="flex items-center gap-0.5 text-status-normal text-xs"><ThumbsUp className="w-3 h-3" /> {confirms}</span>
+                                  <span className="flex items-center gap-0.5 text-status-confirmed text-xs"><ThumbsDown className="w-3 h-3" /> {denies}</span>
+                                  {rv.length > 0 && (isExpanded ? <ChevronUp className="w-3 h-3 text-muted-foreground" /> : <ChevronDown className="w-3 h-3 text-muted-foreground" />)}
+                                </div>
+                              </td>
+                              <td className="p-3" onClick={e => e.stopPropagation()}>
+                                <Select value={report.status} onValueChange={(val) => updateStatus(report.id, val)}>
+                                  <SelectTrigger className="w-32 h-8 rounded-lg">
+                                    <SelectValue />
+                                  </SelectTrigger>
+                                  <SelectContent>
+                                    <SelectItem value="pending">Pending</SelectItem>
+                                    <SelectItem value="investigating">Investigating</SelectItem>
+                                    <SelectItem value="confirmed">Confirmed</SelectItem>
+                                    <SelectItem value="resolved">Resolved</SelectItem>
+                                  </SelectContent>
+                                </Select>
+                              </td>
+                            </tr>
+                            {isExpanded && rv.length > 0 && (
+                              <tr key={`${report.id}-feedback`} className="bg-muted/20">
+                                <td colSpan={4} className="p-3">
+                                  <p className="text-xs font-medium text-muted-foreground mb-2">User Feedback ({rv.length})</p>
+                                  <div className="space-y-1.5">
+                                    {rv.map(v => (
+                                      <div key={v.id} className="flex items-center gap-2 text-xs">
+                                        {v.confirmed ? <ThumbsUp className="w-3 h-3 text-status-normal" /> : <ThumbsDown className="w-3 h-3 text-status-confirmed" />}
+                                        <span className="font-medium">{v.user_name}</span>
+                                        <span className="text-muted-foreground">from {v.user_location}</span>
+                                        <span className="text-muted-foreground ml-auto">{new Date(v.created_at).toLocaleDateString()}</span>
+                                      </div>
+                                    ))}
+                                  </div>
+                                </td>
+                              </tr>
+                            )}
+                          </>
+                        );
+                      })}
                     </tbody>
                   </table>
                   {reports.filter(r => r.utility === "water").length === 0 && (
