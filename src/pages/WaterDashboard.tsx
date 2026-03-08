@@ -25,7 +25,7 @@ export default function WaterDashboard() {
   const actions = [
     { icon: CreditCard, label: "Pay Bill", desc: "MTN & Airtel Mobile Money", path: "/pay/water" },
     { icon: AlertTriangle, label: "Report Problem", desc: "Shortage, pipe leak, low pressure", path: "/report/water" },
-    { icon: MapPin, label: "Area Issues", desc: "See issues near you", path: "/outages/water" },
+    { icon: MapPin, label: "Areas with Issues", desc: "See issues near you", path: "/outages/water" },
   ];
 
   const unitsValue = units !== null ? units.toFixed(1) : "—";
