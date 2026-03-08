@@ -138,7 +138,11 @@ export default function AuthPage() {
                   </button>
                 </div>
               </div>
-              <Button type="submit" className="w-full h-11 text-base font-semibold" disabled={loading}>
+              <Button
+                type="submit"
+                className="w-full h-12 text-base font-bold rounded-xl bg-gradient-to-r from-electricity to-amber-500 hover:from-amber-500 hover:to-electricity text-black shadow-lg hover:shadow-xl transition-all duration-300"
+                disabled={loading}
+              >
                 {loading ? "Please wait..." : isLogin ? "Sign In" : "Create Account"}
               </Button>
             </form>
