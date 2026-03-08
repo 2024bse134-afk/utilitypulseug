@@ -121,12 +121,12 @@ export default function AdminDashboard() {
     <div className="min-h-screen relative overflow-hidden bg-background">
       <div className="relative z-10 p-4">
       <div className="max-w-5xl mx-auto pt-6">
-        <div className="flex items-center justify-between mb-6">
+        <div className="flex items-center justify-between mb-6 bg-card rounded-xl p-4 shadow-card border border-border">
           <div className="flex items-center gap-3">
-            <Button variant="ghost" size="icon" onClick={() => navigate("/")} className="rounded-xl">
+            <Button variant="outline" size="icon" onClick={() => navigate("/")} className="rounded-xl">
               <Home className="w-5 h-5" />
             </Button>
-            <h1 className="text-2xl font-heading font-bold text-foreground">Admin Dashboard</h1>
+            <h1 className="text-2xl font-heading font-bold text-primary">Admin Dashboard</h1>
           </div>
           <Button variant="default" size="sm" onClick={signOut} className="rounded-xl bg-primary text-primary-foreground hover:bg-primary/90">
             Sign out
