@@ -256,41 +256,44 @@ export default function ReportProblemPage() {
               <div className="space-y-2">
                 <Label className="text-sm font-medium">Town / Village</Label>
                 {district ? (
-                  <>
-                    <div className="relative">
-                      <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
-                      <Input
-                        placeholder={`Search towns in ${district}...`}
-                        value={townSearch}
-                        onChange={(e) => setTownSearch(e.target.value)}
-                        className="pl-9 rounded-xl h-10 bg-background/50 mb-2"
-                      />
+                  townVillage ? (
+                    <div className={`flex items-center justify-between rounded-xl border px-3 py-2 ${isElectricity ? "border-electricity/30 bg-electricity/5" : "border-water/30 bg-water/5"}`}>
+                      <span className="text-sm font-medium">{townVillage}</span>
+                      <Button type="button" variant="ghost" size="sm" className="h-6 text-xs text-muted-foreground" onClick={() => { setTownVillage(""); setTownSearch(""); }}>
+                        Change
+                      </Button>
                     </div>
-                    <div className="grid grid-cols-2 gap-1.5 max-h-48 overflow-y-auto rounded-xl border border-border/50 p-2 bg-background/30">
-                      {filteredTowns.length > 0 ? (
-                        filteredTowns.map((t) => (
-                          <button
-                            key={t}
-                            type="button"
-                            onClick={() => setTownVillage(t)}
-                            className={`text-left px-3 py-2 rounded-lg text-sm transition-all duration-150
-                              ${townVillage === t
-                                ? isElectricity
-                                  ? "bg-electricity/10 text-foreground font-semibold border border-electricity/30"
-                                  : "bg-water/10 text-foreground font-semibold border border-water/30"
-                                : "hover:bg-muted/50 text-foreground/70 border border-transparent"
-                              }`}
-                          >
-                            {t}
-                          </button>
-                        ))
-                      ) : (
-                        <p className="col-span-2 text-center py-4 text-sm text-muted-foreground">
-                          No towns found. Try a different search.
-                        </p>
-                      )}
-                    </div>
-                  </>
+                  ) : (
+                    <>
+                      <div className="relative">
+                        <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
+                        <Input
+                          placeholder={`Search towns in ${district}...`}
+                          value={townSearch}
+                          onChange={(e) => setTownSearch(e.target.value)}
+                          className="pl-9 rounded-xl h-10 bg-background/50 mb-2"
+                        />
+                      </div>
+                      <div className="grid grid-cols-2 gap-1.5 max-h-48 overflow-y-auto rounded-xl border border-border/50 p-2 bg-background/30">
+                        {filteredTowns.length > 0 ? (
+                          filteredTowns.map((t) => (
+                            <button
+                              key={t}
+                              type="button"
+                              onClick={() => setTownVillage(t)}
+                              className="text-left px-3 py-2 rounded-lg text-sm transition-all duration-150 hover:bg-muted/50 text-foreground/70 border border-transparent"
+                            >
+                              {t}
+                            </button>
+                          ))
+                        ) : (
+                          <p className="col-span-2 text-center py-4 text-sm text-muted-foreground">
+                            No towns found. Try a different search.
+                          </p>
+                        )}
+                      </div>
+                    </>
+                  )
                 ) : (
                   <div className="flex items-center justify-center py-6 rounded-xl border border-dashed border-border/50 bg-muted/20">
                     <p className="text-sm text-muted-foreground">Select a district first to see towns</p>
