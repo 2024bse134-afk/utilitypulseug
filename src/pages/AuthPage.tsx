@@ -184,6 +184,7 @@ export default function AuthPage() {
                   : "Already have an account? Sign in"}
               </button>
             </div>
+          </CardContent>
         </Card>
       </div>
     </div>
