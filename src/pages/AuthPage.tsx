@@ -7,6 +7,7 @@ import { Label } from "@/components/ui/label";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { toast } from "sonner";
 import { Zap, Droplets, Eye, EyeOff, Mail, Lock, User } from "lucide-react";
+import { lovable } from "@/integrations/lovable/index";
 
 export default function AuthPage() {
   const [isLogin, setIsLogin] = useState(true);
