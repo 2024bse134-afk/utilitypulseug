@@ -75,7 +75,7 @@ export default function AuthPage() {
 
       <div className="w-full max-w-md animate-slide-up relative z-10">
         {/* Logo */}
-        <div className="text-center mb-8">
+        <div className="text-center mb-8 bg-background/60 backdrop-blur-sm rounded-2xl px-6 py-4">
           <div className="inline-flex items-center gap-3 mb-4">
             <div className="w-12 h-12 rounded-2xl gradient-electricity flex items-center justify-center shadow-glow-electricity">
               <Zap className="w-6 h-6 text-electricity-foreground" />
@@ -84,10 +84,10 @@ export default function AuthPage() {
               <Droplets className="w-6 h-6 text-water-foreground" />
             </div>
           </div>
-          <h1 className="text-3xl font-heading font-bold text-foreground">
+          <h1 className="text-3xl font-heading font-bold text-foreground drop-shadow-md">
             Utility Pulse UG
           </h1>
-          <p className="text-muted-foreground mt-1">
+          <p className="text-muted-foreground mt-1 drop-shadow-sm">
             Community-powered utility monitoring for Uganda
           </p>
         </div>
