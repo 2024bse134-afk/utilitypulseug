@@ -38,7 +38,7 @@ export default function ReportProblemPage() {
 
   const isElectricity = utility === "electricity";
   const problems = isElectricity ? ELECTRICITY_PROBLEMS : WATER_PROBLEMS;
-  const districts = getDistricts();
+  const filteredDistricts = useMemo(() => searchDistricts(districtSearch), [districtSearch]);
   const towns = district ? getTownsForDistrict(district) : [];
   const filteredTowns = townSearch
     ? towns.filter(t => t.toLowerCase().includes(townSearch.toLowerCase()))
