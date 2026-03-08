@@ -50,13 +50,15 @@ export default function AdminDashboard() {
   }, [isAdmin]);
 
   const fetchData = async () => {
-    const [reportsRes, profilesRes] = await Promise.all([
+    const [reportsRes, profilesRes, verificationsRes] = await Promise.all([
       supabase.from("reports").select("*").order("created_at", { ascending: false }),
       supabase.from("profiles").select("id", { count: "exact" }),
+      supabase.from("verifications").select("*, profiles!verifications_user_id_fkey(full_name, district, town_village)").order("created_at", { ascending: false }),
     ]);
 
     const allReports = reportsRes.data || [];
     setReports(allReports);
+    setVerifications((verificationsRes.data as Verification[]) || []);
     setStats({
       totalUsers: profilesRes.count || 0,
       totalReports: allReports.length,
