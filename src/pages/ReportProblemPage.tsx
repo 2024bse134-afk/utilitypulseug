@@ -93,14 +93,20 @@ export default function ReportProblemPage() {
     if (!user) return;
     setLoading(true);
 
-    const { error } = await supabase.from("reports").insert({
+    const insertData: Record<string, unknown> = {
       user_id: user.id,
       utility: utility!,
       problem_type: problemType,
       district,
       town_village: townVillage,
       description: description || "",
-    });
+    };
+    if (latitude !== null && longitude !== null) {
+      insertData.latitude = latitude;
+      insertData.longitude = longitude;
+    }
+
+    const { error } = await supabase.from("reports").insert(insertData as any);
 
     if (error) {
       toast.error("Failed to submit report: " + error.message);
