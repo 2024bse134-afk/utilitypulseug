@@ -3,20 +3,6 @@ Utility Pulse UG is a web-based platform that enables communities to report elec
 The platform allows users to quickly submit reports about service disruptions and helps administrators monitor issues affecting different districts and towns.
 
 
-Table of Contents
-Overview
-Problem Statement
-Solution
-Key Features
-System Architecture
-Technology Stack
-Application Workflow
-Installation Guide
-Deployment
-Future Improvements
-Contribution Guidelines
-Author
-License
 
 Overview
 Access to reliable electricity and water services is essential for daily living. However, many communities face challenges when reporting outages or service disruptions to providers.
@@ -91,19 +77,6 @@ Processes authentication, report submissions, and payment requests.
 Database
 Stores user accounts, reports, and payment records.
 
-
-Technology Stack
-Frontend
-HTML
-CSS
-JavaScript
-Backend
-Node.js
-Express.js
-Database 
-Firebase 
-
-
 Deployment
 Hosted on Vercel
 Version Control
@@ -121,20 +94,7 @@ Installation Guide
 Clone the repository
 Copy code
 
-git clone https://github.com/your-nabulyashadia/utilitypulseug.git
-Navigate to the project directory
-Copy code
 
-cd utilitypulseug
-Install project dependencies
-Copy code
-
-npm install
-Run the development server
-Copy code
-
-npm run dev
-The application will start locally and can be accessed in your browser.
 Live Demo
 Access the deployed application:
 https://utilitypulseug.vercel.app⁠�
@@ -154,8 +114,10 @@ Fork the repository
 Create a new branch for your feature
 Commit your changes
 Submit a pull request
+
 Author
 Nabulya Shadia
 Software Engineering Student
+
 License
 This project is intended for educational and research purposes.
