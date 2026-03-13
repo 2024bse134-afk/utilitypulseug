@@ -229,7 +229,7 @@ export default function AdminDashboard() {
                             </tr>
                             {isExpanded && rv.length > 0 && (
                               <tr key={`${report.id}-feedback`} className="bg-muted/20">
-                                <td colSpan={4} className="p-3">
+                                <td colSpan={5} className="p-3">
                                   <p className="text-xs font-medium text-muted-foreground mb-2">User Feedback ({rv.length})</p>
                                   <div className="space-y-1.5">
                                     {rv.map(v => (
