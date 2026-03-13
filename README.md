@@ -104,7 +104,7 @@ Copy code
 Live Demo
 
 Access the deployed application:
-https://utilitypulseug.vercel.app⁠�
+https://utilitypulseug.vercel.app
 
 Future Improvements
 
