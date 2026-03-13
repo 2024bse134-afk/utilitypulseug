@@ -73,8 +73,7 @@ export default function ReportProblemPage() {
       { enableHighAccuracy: true, timeout: 10000 }
     );
   };
-  const [showDistrictDropdown, setShowDistrictDropdown] = useState(false);
-
+  // showDistrictDropdown already declared above
   // Pre-fill from user profile
   useEffect(() => {
     if (profile?.district && !district) setDistrict(profile.district);
