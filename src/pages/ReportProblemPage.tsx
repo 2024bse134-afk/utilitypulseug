@@ -6,7 +6,8 @@ import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
-import { ArrowLeft, AlertTriangle, CheckCircle2, MapPin, Zap, Droplets, FileWarning, Search, ChevronDown, X } from "lucide-react";
+import { Switch } from "@/components/ui/switch";
+import { ArrowLeft, AlertTriangle, CheckCircle2, MapPin, Zap, Droplets, FileWarning, Search, ChevronDown, X, Navigation, Loader2 } from "lucide-react";
 import { toast } from "sonner";
 import { Input } from "@/components/ui/input";
 import { getDistricts, getTownsForDistrict, searchDistricts } from "@/data/ugandaLocations";
@@ -37,7 +38,42 @@ export default function ReportProblemPage() {
   const [townSearch, setTownSearch] = useState("");
   const [districtSearch, setDistrictSearch] = useState("");
   const [showDistrictDropdown, setShowDistrictDropdown] = useState(false);
+  const [locationEnabled, setLocationEnabled] = useState(false);
+  const [locationLoading, setLocationLoading] = useState(false);
+  const [latitude, setLatitude] = useState<number | null>(null);
+  const [longitude, setLongitude] = useState<number | null>(null);
+  const [locationError, setLocationError] = useState<string | null>(null);
 
+  const handleLocationToggle = async (enabled: boolean) => {
+    setLocationEnabled(enabled);
+    setLocationError(null);
+    if (!enabled) {
+      setLatitude(null);
+      setLongitude(null);
+      return;
+    }
+    if (!navigator.geolocation) {
+      setLocationError("Geolocation is not supported by your browser.");
+      setLocationEnabled(false);
+      return;
+    }
+    setLocationLoading(true);
+    navigator.geolocation.getCurrentPosition(
+      (position) => {
+        setLatitude(position.coords.latitude);
+        setLongitude(position.coords.longitude);
+        setLocationLoading(false);
+        toast.success("Location captured successfully!");
+      },
+      (err) => {
+        setLocationError("Location access denied. Please enable location permissions.");
+        setLocationEnabled(false);
+        setLocationLoading(false);
+      },
+      { enableHighAccuracy: true, timeout: 10000 }
+    );
+  };
+  // showDistrictDropdown already declared above
   // Pre-fill from user profile
   useEffect(() => {
     if (profile?.district && !district) setDistrict(profile.district);
@@ -57,14 +93,20 @@ export default function ReportProblemPage() {
     if (!user) return;
     setLoading(true);
 
-    const { error } = await supabase.from("reports").insert({
+    const insertData: Record<string, unknown> = {
       user_id: user.id,
       utility: utility!,
       problem_type: problemType,
       district,
       town_village: townVillage,
       description: description || "",
-    });
+    };
+    if (latitude !== null && longitude !== null) {
+      insertData.latitude = latitude;
+      insertData.longitude = longitude;
+    }
+
+    const { error } = await supabase.from("reports").insert(insertData as any);
 
     if (error) {
       toast.error("Failed to submit report: " + error.message);
@@ -311,6 +353,50 @@ export default function ReportProblemPage() {
                 )}
               </div>
 
+              {/* Live Location Toggle */}
+              <div className="space-y-3">
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center gap-2">
+                    <Navigation className={`w-4 h-4 ${isElectricity ? "text-electricity" : "text-water"}`} />
+                    <Label className="text-sm font-medium">Share Live Location</Label>
+                  </div>
+                  <Switch
+                    checked={locationEnabled}
+                    onCheckedChange={handleLocationToggle}
+                    disabled={locationLoading}
+                  />
+                </div>
+                <p className="text-xs text-muted-foreground">
+                  Sharing your GPS location helps utility providers respond faster to your area.
+                </p>
+                {locationError && (
+                  <p className="text-xs text-destructive">{locationError}</p>
+                )}
+                {locationLoading && (
+                  <div className="flex items-center gap-2 text-xs text-muted-foreground">
+                    <Loader2 className="w-3 h-3 animate-spin" />
+                    Getting your location...
+                  </div>
+                )}
+                {latitude !== null && longitude !== null && (
+                  <div className="rounded-xl overflow-hidden border border-border/50">
+                    <div className="bg-muted/30 p-2.5 flex items-center gap-2">
+                      <MapPin className={`w-3.5 h-3.5 ${isElectricity ? "text-electricity" : "text-water"}`} />
+                      <span className="text-xs font-medium">
+                        {latitude.toFixed(5)}, {longitude.toFixed(5)}
+                      </span>
+                    </div>
+                    <iframe
+                      title="Location preview"
+                      width="100%"
+                      height="150"
+                      style={{ border: 0 }}
+                      loading="lazy"
+                      src={`https://www.openstreetmap.org/export/embed.html?bbox=${longitude - 0.005}%2C${latitude - 0.005}%2C${longitude + 0.005}%2C${latitude + 0.005}&layer=mapnik&marker=${latitude}%2C${longitude}`}
+                    />
+                  </div>
+                )}
+              </div>
               <div className="space-y-2">
                 <Label className="text-sm font-medium">Description <span className="text-muted-foreground font-normal">(optional)</span></Label>
                 <Textarea

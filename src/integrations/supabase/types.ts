@@ -88,6 +88,8 @@ export type Database = {
           description: string | null
           district: string
           id: string
+          latitude: number | null
+          longitude: number | null
           problem_type: string
           status: string
           town_village: string
@@ -102,6 +104,8 @@ export type Database = {
           description?: string | null
           district: string
           id?: string
+          latitude?: number | null
+          longitude?: number | null
           problem_type: string
           status?: string
           town_village: string
@@ -116,6 +120,8 @@ export type Database = {
           description?: string | null
           district?: string
           id?: string
+          latitude?: number | null
+          longitude?: number | null
           problem_type?: string
           status?: string
           town_village?: string

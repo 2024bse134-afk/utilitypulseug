@@ -6,7 +6,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { ArrowLeft, Users, FileText, Zap, Droplets, AlertTriangle, Flame, Home, ThumbsUp, ThumbsDown, ChevronDown, ChevronUp } from "lucide-react";
+import { ArrowLeft, Users, FileText, Zap, Droplets, AlertTriangle, Flame, Home, ThumbsUp, ThumbsDown, ChevronDown, ChevronUp, Navigation, ExternalLink } from "lucide-react";
 import { toast } from "sonner";
 import type { Tables } from "@/integrations/supabase/types";
 
@@ -170,10 +170,11 @@ export default function AdminDashboard() {
                   <table className="w-full text-sm">
                     <thead>
                       <tr className="border-b bg-muted/50">
-                        <th className="p-3 text-left font-medium text-muted-foreground">Location</th>
-                        <th className="p-3 text-left font-medium text-muted-foreground">Problem</th>
-                        <th className="p-3 text-left font-medium text-muted-foreground">Feedback</th>
-                        <th className="p-3 text-left font-medium text-muted-foreground">Status</th>
+                         <th className="p-3 text-left font-medium text-muted-foreground">Location</th>
+                         <th className="p-3 text-left font-medium text-muted-foreground">Problem</th>
+                         <th className="p-3 text-left font-medium text-muted-foreground">GPS</th>
+                         <th className="p-3 text-left font-medium text-muted-foreground">Feedback</th>
+                         <th className="p-3 text-left font-medium text-muted-foreground">Status</th>
                       </tr>
                     </thead>
                     <tbody>
@@ -189,6 +190,22 @@ export default function AdminDashboard() {
                                 {report.town_village}, {report.district}
                               </td>
                               <td className="p-3">{report.problem_type}</td>
+                              <td className="p-3">
+                                {(report as any).latitude && (report as any).longitude ? (
+                                  <a
+                                    href={`https://www.openstreetmap.org/?mlat=${(report as any).latitude}&mlon=${(report as any).longitude}#map=16/${(report as any).latitude}/${(report as any).longitude}`}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    onClick={e => e.stopPropagation()}
+                                    className="inline-flex items-center gap-1 text-xs text-primary hover:underline"
+                                  >
+                                    <Navigation className="w-3 h-3" />
+                                    View
+                                  </a>
+                                ) : (
+                                  <span className="text-xs text-muted-foreground">—</span>
+                                )}
+                              </td>
                               <td className="p-3">
                                 <div className="flex items-center gap-2">
                                   <span className="flex items-center gap-0.5 text-status-normal text-xs"><ThumbsUp className="w-3 h-3" /> {confirms}</span>
@@ -212,7 +229,7 @@ export default function AdminDashboard() {
                             </tr>
                             {isExpanded && rv.length > 0 && (
                               <tr key={`${report.id}-feedback`} className="bg-muted/20">
-                                <td colSpan={4} className="p-3">
+                                <td colSpan={5} className="p-3">
                                   <p className="text-xs font-medium text-muted-foreground mb-2">User Feedback ({rv.length})</p>
                                   <div className="space-y-1.5">
                                     {rv.map(v => (
@@ -252,10 +269,11 @@ export default function AdminDashboard() {
                   <table className="w-full text-sm">
                     <thead>
                       <tr className="border-b bg-muted/50">
-                        <th className="p-3 text-left font-medium text-muted-foreground">Location</th>
-                        <th className="p-3 text-left font-medium text-muted-foreground">Problem</th>
-                        <th className="p-3 text-left font-medium text-muted-foreground">Feedback</th>
-                        <th className="p-3 text-left font-medium text-muted-foreground">Status</th>
+                         <th className="p-3 text-left font-medium text-muted-foreground">Location</th>
+                         <th className="p-3 text-left font-medium text-muted-foreground">Problem</th>
+                         <th className="p-3 text-left font-medium text-muted-foreground">GPS</th>
+                         <th className="p-3 text-left font-medium text-muted-foreground">Feedback</th>
+                         <th className="p-3 text-left font-medium text-muted-foreground">Status</th>
                       </tr>
                     </thead>
                     <tbody>
@@ -271,6 +289,22 @@ export default function AdminDashboard() {
                                 {report.town_village}, {report.district}
                               </td>
                               <td className="p-3">{report.problem_type}</td>
+                              <td className="p-3">
+                                {(report as any).latitude && (report as any).longitude ? (
+                                  <a
+                                    href={`https://www.openstreetmap.org/?mlat=${(report as any).latitude}&mlon=${(report as any).longitude}#map=16/${(report as any).latitude}/${(report as any).longitude}`}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    onClick={e => e.stopPropagation()}
+                                    className="inline-flex items-center gap-1 text-xs text-primary hover:underline"
+                                  >
+                                    <Navigation className="w-3 h-3" />
+                                    View
+                                  </a>
+                                ) : (
+                                  <span className="text-xs text-muted-foreground">—</span>
+                                )}
+                              </td>
                               <td className="p-3">
                                 <div className="flex items-center gap-2">
                                   <span className="flex items-center gap-0.5 text-status-normal text-xs"><ThumbsUp className="w-3 h-3" /> {confirms}</span>
@@ -294,7 +328,7 @@ export default function AdminDashboard() {
                             </tr>
                             {isExpanded && rv.length > 0 && (
                               <tr key={`${report.id}-feedback`} className="bg-muted/20">
-                                <td colSpan={4} className="p-3">
+                                <td colSpan={5} className="p-3">
                                   <p className="text-xs font-medium text-muted-foreground mb-2">User Feedback ({rv.length})</p>
                                   <div className="space-y-1.5">
                                     {rv.map(v => (
