@@ -29,7 +29,7 @@ A digital reporting platform can help address these challenges.
 
 Solution
 
-Utility Pulse UG introduces a web platform that allows users to report electricity and water outages quickly while providing location-based information about service disruptions.
+Utility Pulse UG introduces a web platform that allows users to report electricity and water outages quickly while providing location based information(live location or input city and town)about service disruptions.
 Reports submitted by users can be reviewed and tracked through an administrative dashboard, allowing service providers or administrators to monitor recurring issues in specific areas.
 The system also integrates mobile money payments, enabling users to make utility payments conveniently within the platform.
 
@@ -56,6 +56,7 @@ Water leakage
 Each report includes:
 Utility type
 Description of the issue
+live location or
 District
 Town
 Reports help administrators track service disruptions by location.
@@ -96,10 +97,6 @@ Submit a service report
 Make a payment through mobile money
 Reports are stored and made available in the admin dashboard.
 Administrators review and track reported issues.
-Installation Guide
-Clone the repository
-Copy code
-
 
 Live Demo
 
