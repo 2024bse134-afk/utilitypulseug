@@ -4,20 +4,32 @@ The platform allows users to quickly submit reports about service disruptions an
 
 
 Table of Contents
+
 Overview
+
 Problem Statement
+
 Solution
 
 Key Features
+
 System Architecture
+
 Technology Stack
+
 Application Workflow
+
 Installation Guide
+
 Deployment
-Screenshots
+
+
 Future Improvements
+
 Contribution Guidelines
+
 Author
+
 License
 
 Overview
