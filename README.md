@@ -1,10 +1,13 @@
 Utility Pulse UG
 Utility Pulse UG is a web-based platform that enables communities to report electricity and water service outages while also allowing users to conveniently pay for utilities using mobile money. The system improves communication between consumers and service providers by providing a structured and location-based reporting system.
 The platform allows users to quickly submit reports about service disruptions and helps administrators monitor issues affecting different districts and towns.
+
+
 Table of Contents
 Overview
 Problem Statement
 Solution
+
 Key Features
 System Architecture
 Technology Stack
@@ -16,6 +19,7 @@ Future Improvements
 Contribution Guidelines
 Author
 License
+
 Overview
 Access to reliable electricity and water services is essential for daily living. However, many communities face challenges when reporting outages or service disruptions to providers.
 Utility Pulse UG provides a centralized digital platform that enables users to:
@@ -25,6 +29,8 @@ Submit location-based service reports
 Make utility payments via mobile money
 Improve communication with service providers
 The system helps streamline how communities communicate service issues while providing administrators with tools to track and monitor reported problems.
+
+
 Problem Statement
 In many communities, reporting utility issues is often slow and inefficient. Users may rely on phone calls or physical visits to service providers to report outages.
 These traditional methods present several challenges:
@@ -33,10 +39,14 @@ Lack of centralized reporting systems
 Poor tracking of reported issues
 Limited communication between communities and service providers
 A digital reporting platform can help address these challenges.
+
+
 Solution
 Utility Pulse UG introduces a web platform that allows users to report electricity and water outages quickly while providing location-based information about service disruptions.
 Reports submitted by users can be reviewed and tracked through an administrative dashboard, allowing service providers or administrators to monitor recurring issues in specific areas.
 The system also integrates mobile money payments, enabling users to make utility payments conveniently within the platform.
+
+
 Key Features
 User Authentication
 User registration with email verification
@@ -72,6 +82,8 @@ View submitted reports
 Track reports by district and town
 Monitor user activity
 Manage platform data
+
+
 System Architecture
 The platform follows a typical web application architecture consisting of three main components:
 Frontend
@@ -80,6 +92,8 @@ Backend
 Processes authentication, report submissions, and payment requests.
 Database
 Stores user accounts, reports, and payment records.
+
+
 Technology Stack
 Frontend
 HTML
@@ -88,8 +102,10 @@ JavaScript
 Backend
 Node.js
 Express.js
-Database
-MongoDB / Firebase (depending on implementation)
+Database 
+Firebase 
+
+
 Deployment
 Hosted on Vercel
 Version Control
@@ -107,7 +123,7 @@ Installation Guide
 Clone the repository
 Copy code
 
-git clone https://github.com/your-username/utilitypulseug.git
+git clone https://github.com/your-nabulyashadia/utilitypulseug.git
 Navigate to the project directory
 Copy code
 
