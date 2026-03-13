@@ -38,6 +38,42 @@ export default function ReportProblemPage() {
   const [townSearch, setTownSearch] = useState("");
   const [districtSearch, setDistrictSearch] = useState("");
   const [showDistrictDropdown, setShowDistrictDropdown] = useState(false);
+  const [locationEnabled, setLocationEnabled] = useState(false);
+  const [locationLoading, setLocationLoading] = useState(false);
+  const [latitude, setLatitude] = useState<number | null>(null);
+  const [longitude, setLongitude] = useState<number | null>(null);
+  const [locationError, setLocationError] = useState<string | null>(null);
+
+  const handleLocationToggle = async (enabled: boolean) => {
+    setLocationEnabled(enabled);
+    setLocationError(null);
+    if (!enabled) {
+      setLatitude(null);
+      setLongitude(null);
+      return;
+    }
+    if (!navigator.geolocation) {
+      setLocationError("Geolocation is not supported by your browser.");
+      setLocationEnabled(false);
+      return;
+    }
+    setLocationLoading(true);
+    navigator.geolocation.getCurrentPosition(
+      (position) => {
+        setLatitude(position.coords.latitude);
+        setLongitude(position.coords.longitude);
+        setLocationLoading(false);
+        toast.success("Location captured successfully!");
+      },
+      (err) => {
+        setLocationError("Location access denied. Please enable location permissions.");
+        setLocationEnabled(false);
+        setLocationLoading(false);
+      },
+      { enableHighAccuracy: true, timeout: 10000 }
+    );
+  };
+  const [showDistrictDropdown, setShowDistrictDropdown] = useState(false);
 
   // Pre-fill from user profile
   useEffect(() => {
