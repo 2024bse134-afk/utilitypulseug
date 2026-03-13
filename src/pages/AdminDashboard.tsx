@@ -191,6 +191,22 @@ export default function AdminDashboard() {
                               </td>
                               <td className="p-3">{report.problem_type}</td>
                               <td className="p-3">
+                                {(report as any).latitude && (report as any).longitude ? (
+                                  <a
+                                    href={`https://www.openstreetmap.org/?mlat=${(report as any).latitude}&mlon=${(report as any).longitude}#map=16/${(report as any).latitude}/${(report as any).longitude}`}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    onClick={e => e.stopPropagation()}
+                                    className="inline-flex items-center gap-1 text-xs text-primary hover:underline"
+                                  >
+                                    <Navigation className="w-3 h-3" />
+                                    View
+                                  </a>
+                                ) : (
+                                  <span className="text-xs text-muted-foreground">—</span>
+                                )}
+                              </td>
+                              <td className="p-3">
                                 <div className="flex items-center gap-2">
                                   <span className="flex items-center gap-0.5 text-status-normal text-xs"><ThumbsUp className="w-3 h-3" /> {confirms}</span>
                                   <span className="flex items-center gap-0.5 text-status-confirmed text-xs"><ThumbsDown className="w-3 h-3" /> {denies}</span>
