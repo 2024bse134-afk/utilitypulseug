@@ -5,6 +5,7 @@ The platform allows users to quickly submit reports about service disruptions an
 
 
 Overview
+
 Access to reliable electricity and water services is essential for daily living. However, many communities face challenges when reporting outages or service disruptions to providers.
 Utility Pulse UG provides a centralized digital platform that enables users to:
 Report electricity outages
@@ -16,6 +17,7 @@ The system helps streamline how communities communicate service issues while pro
 
 
 Problem Statement
+
 In many communities, reporting utility issues is often slow and inefficient. Users may rely on phone calls or physical visits to service providers to report outages.
 These traditional methods present several challenges:
 Delayed reporting of service disruptions
@@ -26,12 +28,14 @@ A digital reporting platform can help address these challenges.
 
 
 Solution
+
 Utility Pulse UG introduces a web platform that allows users to report electricity and water outages quickly while providing location-based information about service disruptions.
 Reports submitted by users can be reviewed and tracked through an administrative dashboard, allowing service providers or administrators to monitor recurring issues in specific areas.
 The system also integrates mobile money payments, enabling users to make utility payments conveniently within the platform.
 
 
 Key Features
+
 User Authentication
 User registration with email verification
 Secure login and authentication
@@ -69,6 +73,7 @@ Manage platform data
 
 
 System Architecture
+
 The platform follows a typical web application architecture consisting of three main components:
 Frontend
 Handles user interaction and the application interface.
@@ -78,6 +83,7 @@ Database
 Stores user accounts, reports, and payment records.
 
 Deployment
+
 Hosted on Vercel
 Version Control
 Managed using GitHub
@@ -96,10 +102,12 @@ Copy code
 
 
 Live Demo
+
 Access the deployed application:
 https://utilitypulseug.vercel.app⁠�
 
 Future Improvements
+
 Planned improvements for Utility Pulse UG include:
 Integration with official utility provider APIs
 Real-time outage notification system
@@ -116,8 +124,10 @@ Commit your changes
 Submit a pull request
 
 Author
+
 Nabulya Shadia
 Software Engineering Student
 
 License
+
 This project is intended for educational and research purposes.
