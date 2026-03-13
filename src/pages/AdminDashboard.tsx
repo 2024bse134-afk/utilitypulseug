@@ -269,10 +269,11 @@ export default function AdminDashboard() {
                   <table className="w-full text-sm">
                     <thead>
                       <tr className="border-b bg-muted/50">
-                        <th className="p-3 text-left font-medium text-muted-foreground">Location</th>
-                        <th className="p-3 text-left font-medium text-muted-foreground">Problem</th>
-                        <th className="p-3 text-left font-medium text-muted-foreground">Feedback</th>
-                        <th className="p-3 text-left font-medium text-muted-foreground">Status</th>
+                         <th className="p-3 text-left font-medium text-muted-foreground">Location</th>
+                         <th className="p-3 text-left font-medium text-muted-foreground">Problem</th>
+                         <th className="p-3 text-left font-medium text-muted-foreground">GPS</th>
+                         <th className="p-3 text-left font-medium text-muted-foreground">Feedback</th>
+                         <th className="p-3 text-left font-medium text-muted-foreground">Status</th>
                       </tr>
                     </thead>
                     <tbody>
