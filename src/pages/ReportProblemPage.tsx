@@ -353,6 +353,50 @@ export default function ReportProblemPage() {
                 )}
               </div>
 
+              {/* Live Location Toggle */}
+              <div className="space-y-3">
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center gap-2">
+                    <Navigation className={`w-4 h-4 ${isElectricity ? "text-electricity" : "text-water"}`} />
+                    <Label className="text-sm font-medium">Share Live Location</Label>
+                  </div>
+                  <Switch
+                    checked={locationEnabled}
+                    onCheckedChange={handleLocationToggle}
+                    disabled={locationLoading}
+                  />
+                </div>
+                <p className="text-xs text-muted-foreground">
+                  Sharing your GPS location helps utility providers respond faster to your area.
+                </p>
+                {locationError && (
+                  <p className="text-xs text-destructive">{locationError}</p>
+                )}
+                {locationLoading && (
+                  <div className="flex items-center gap-2 text-xs text-muted-foreground">
+                    <Loader2 className="w-3 h-3 animate-spin" />
+                    Getting your location...
+                  </div>
+                )}
+                {latitude !== null && longitude !== null && (
+                  <div className="rounded-xl overflow-hidden border border-border/50">
+                    <div className="bg-muted/30 p-2.5 flex items-center gap-2">
+                      <MapPin className={`w-3.5 h-3.5 ${isElectricity ? "text-electricity" : "text-water"}`} />
+                      <span className="text-xs font-medium">
+                        {latitude.toFixed(5)}, {longitude.toFixed(5)}
+                      </span>
+                    </div>
+                    <iframe
+                      title="Location preview"
+                      width="100%"
+                      height="150"
+                      style={{ border: 0 }}
+                      loading="lazy"
+                      src={`https://www.openstreetmap.org/export/embed.html?bbox=${longitude - 0.005}%2C${latitude - 0.005}%2C${longitude + 0.005}%2C${latitude + 0.005}&layer=mapnik&marker=${latitude}%2C${longitude}`}
+                    />
+                  </div>
+                )}
+              </div>
               <div className="space-y-2">
                 <Label className="text-sm font-medium">Description <span className="text-muted-foreground font-normal">(optional)</span></Label>
                 <Textarea
